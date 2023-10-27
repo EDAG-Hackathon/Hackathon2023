@@ -1,22 +1,26 @@
-CREATE TABLE rooms (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    name VARCHAR(255),
-    building_id UUID REFERENCES buildings(id)
-);
+CREATE DATABASE IF NOT EXISTS dashboard;
 
-CREATE TABLE buildings (
+\c dashboard;
+
+CREATE TABLE IF NOT EXISTS buildings (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     name VARCHAR(255),
     address VARCHAR(255)
 );
 
-CREATE TABLE sensors (
+CREATE TABLE IF NOT EXISTS rooms (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name VARCHAR(255),
+    building_id UUID REFERENCES buildings(id)
+);
+
+CREATE TABLE IF NOT EXISTS sensors (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     name VARCHAR(255),
     room_id UUID REFERENCES rooms(id)
 );
 
-CREATE TABLE schedule (
+CREATE TABLE IF NOT EXISTS schedule (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     room_id UUID REFERENCES rooms(id),
     start_time TIMESTAMP,
