@@ -1,17 +1,8 @@
 version: '3'
 
 services:
-  backend:
-    image: python:3.12
-    command: python /app/backend.py
-    volumes:
-      - ./backend:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-
   db:
+    container_name: dashboard-db-dev
     image: postgres:latest
     environment:
       POSTGRES_USER: backend
@@ -19,17 +10,3 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - ./backend/sql:/docker-entrypoint-initdb.d
-
-  frontend:
-    container_name: dashboard-frontend-dev
-    image: dashboard-frontend-dev
-    build:
-      context: .
-      dockerfile: ./frontend/DockerfileDev
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/home/node/app
-    environment:
-      - PORT=3000
-      - WATCHPACK_POLLING=true
