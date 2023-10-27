@@ -21,9 +21,15 @@ services:
       - ./backend/sql:/docker-entrypoint-initdb.d
 
   frontend:
-    image: node:21
-    command: npm run dev
-    volumes:
-      - ./frontend:/app
+    container_name: dashboard-frontend-dev
+    image: dashboard-frontend-dev
+    build:
+      context: .
+      dockerfile: ./frontend/DockerfileDev
     ports:
       - "3000:3000"
+    volumes:
+      - ./frontend:/home/node/app
+    environment:
+      - PORT=3000
+      - WATCHPACK_POLLING=true
