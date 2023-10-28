@@ -34,20 +34,15 @@ type Building = {
 
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
-
   const pathname = usePathname();
   const organisation_id = pathname.split("/")[2];
   const {data,error, isLoading} = useFetch<Building[]>(
     `http://localhost:8000/api/buildings?organisation_id=${organisation_id}`
   );
-
-  // Mocked api response
   const buildings = data || [];
-
   const filteredBuildings = buildings.filter((building) =>
     building.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
 
   return (
     <>

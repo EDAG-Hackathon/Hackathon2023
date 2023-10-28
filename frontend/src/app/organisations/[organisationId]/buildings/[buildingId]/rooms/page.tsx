@@ -14,30 +14,33 @@ import {
 } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
 import Divider from "@mui/material/Divider";
+import {useFetch} from "@/hooks/use-fetch";
+
+type Room = {
+  id: string;
+  building_id: string;
+  name: string;
+  number: string;
+  room_temp_occupied: number;
+  room_temp_unoccupied: number;
+  room_humidity: number;
+};
 
 export default function Page() {
-  // Mocked api response
-  const rooms = [
-    {
-      id: "73459e1e-7d12-4e70-9d8d-5bf7eee890ba",
-      name: "Raum 1",
-    },
-    {
-      id: "83659e1e-7d12-4e70-9d8d-5bf7eee890bb",
-      name: "Raum 2",
-    },
-  ];
-
-  const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
-
+  const pathname = usePathname();
+  const building_id = pathname.split("/")[4];
+  const {data, error, isLoading} = useFetch<Room[]>(
+    `http://localhost:8000/api/rooms?building_id=${building_id}`
+  );
+  const rooms = data || [];
   const filteredRooms = rooms.filter((room) =>
     room.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <>
-      <Box sx={{height: "100%", width: "100%", marginLeft: "1rem", color: "primary.main"}}>
+      <Box sx={{height: "100%", width: "100%", marginRight: "5rem", marginLeft: "1rem", color: "primary.main"}}>
         <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
           <Box sx={{marginBottom: "1rem"}}>
             <Typography variant="h4">Raumliste</Typography>
@@ -45,28 +48,35 @@ export default function Page() {
           <TextField
             id="input-with-sx"
             label="Search"
+            sx={{
+              marginLeft: "1rem",
+              marginRight: "1rem",
+              width: "calc(100% - 2rem)"
+            }} // Set equal left and right margins
             variant="outlined"
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </Box>
-        <List>
-          {filteredRooms.map((room) => (
-            <Link key={room.id} href={`${pathname}/${room.id}`}>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <ImageIcon/>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={room.name}
-                  secondary={"bla bla"}
-                />
-              </ListItem>
-              <Divider/>
-            </Link>
-          ))}
-        </List>
+        <Box sx={{overflow: "scroll"}}>
+          <List>
+            {filteredRooms.map((room) => (
+              <Link key={room.id} href={`${pathname}/${room.id}`}>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ImageIcon/>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={room.name}
+                    secondary={room.number}
+                  />
+                </ListItem>
+                <Divider/>
+              </Link>
+            ))}
+          </List>
+        </Box>
       </Box>
     </>
   );
