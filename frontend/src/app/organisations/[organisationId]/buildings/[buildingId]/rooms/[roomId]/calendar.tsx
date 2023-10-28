@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { CreateEditEventDialog } from "./create-edit-event-dialog";
 import { Room } from "./page";
@@ -76,10 +76,13 @@ export function Calendar(params: { selectedRoom: Room }) {
         select={handleSelect}
         headerToolbar={{
           start: "today prev next",
-          end: "dayGridMonth dayGridWeek dayGridDay",
+          center: "title",
+          end: "",
         }}
-        plugins={[dayGridPlugin, interactionPlugin]}
-        // views={["dayGridMonth", "dayGridWeek", "dayGridDay"]}
+        plugins={[timeGridPlugin, interactionPlugin]}
+        initialView={"timeGridWeek"}
+        locale={"de"}
+        nowIndicator={true}
       />
       ;
     </div>
