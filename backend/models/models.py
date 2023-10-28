@@ -23,3 +23,16 @@ class Building(BaseModel):
     name: str
     coordinates: Coordinates
     address: str
+    room_temp_occupied: float
+    room_temp_unoccupied: float
+    room_humidity: float
+
+
+class Room(BaseModel):
+    id: UUID
+    building_id: UUID
+    name: str
+    number: str
+    room_temp_occupied: Optional[float]
+    room_temp_unoccupied: Optional[float]
+    room_humidity: Optional[float]
