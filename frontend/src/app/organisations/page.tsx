@@ -4,6 +4,7 @@ import Link from "next/link";
 import {Avatar, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Typography} from "@mui/material";
 import ImageIcon from '@mui/icons-material/Image';
 import Divider from '@mui/material/Divider';
+import {FixedSizeList, ListChildComponentProps} from 'react-window';
 
 export default function Page() {
     // Mocked api response
@@ -60,26 +61,30 @@ export default function Page() {
             <Box sx={{height: "50vh", width: "100%"}}>Karte</Box>
             <Box sx={{height: "50vh", width: "100%", color: "primary.main"}}>
                 <Typography variant="h4">Organisationen</Typography>
-                    <List>
-                        {organisations.map((organisation) => (
-                            <Link
-                                key={organisation.id}
-                                href={`/organisations/${organisation.id}/buildings`}
-                            >
-                                <ListItem>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            <ImageIcon/>
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primary={organisation.name} secondary={organisation.address}/>
-                                </ListItem>
-                                <Divider />
-                            </Link>
-                            ))}
-                    </List>
+                <FixedSizeList
+                    height={400} // Set the fixed height of the list
+                    width="100%" // Set the fixed width of the list
+                    itemSize={60} // Set the fixed height of each item
+                    itemCount={organisations.length} // Total number of items
+                >
+                    {({index, style}) => (
+                        <Link href={`/organisations/${organisations[index].id}/buildings`}>
+                            <ListItem style={style}>
+                                <ListItemAvatar>
+                                    <Avatar>
+                                        <ImageIcon/>
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={organisations[index].name}
+                                    secondary={organisations[index].address}
+                                />
+                            </ListItem>
+                            <Divider/>
+                        </Link>
+                    )}
+                </FixedSizeList>
             </Box>
         </main>
-    )
-        ;
+    );
 }
