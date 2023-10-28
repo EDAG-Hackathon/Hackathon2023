@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, MenuItem, Select, TextField } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import React from "react";
 
@@ -19,6 +19,7 @@ export function CreateEditEventDialog() {
       setOpen(false);
     };
 
+    const [selectedRoom, changeRoom] = React.useState("Demoroom")
     const [selectedDate, handleDateChange] = React.useState(new Date());
 
     return (
@@ -29,17 +30,30 @@ export function CreateEditEventDialog() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Event erstellen</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        id="event-title"
-                        label="Titel"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <DateTimePicker 
-                        label="Beginn"
-                        value={selectedDate}
-                    />
+                    <FormControl>
+                        <TextField
+                            id="event-title"
+                            label="Titel"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                        />
+                        <Select
+                            id="event-room"
+                            label="Raum"
+                            value={selectedRoom}
+                            fullWidth
+                            variant="outlined"
+                        >
+                            <MenuItem value={selectedRoom}>{selectedRoom}</MenuItem>
+                        </Select>
+                        <DateTimePicker 
+                            label="Beginn"
+                        />
+                        <DateTimePicker 
+                            label="Ende"
+                        />
+                    </FormControl>
                 </DialogContent>
                 <DialogActions>
                     <Button variant="outlined" onClick={handleSave}>Speichern</Button>
