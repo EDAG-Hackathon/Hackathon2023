@@ -1,6 +1,7 @@
 import {
   Button,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -9,32 +10,27 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker";
 import { useState } from "react";
 
-export function CreateEditEventDialog() {
-  const [open, setOpen] = React.useState(false);
+type CreateEditEventDialogProps = {
+  open: boolean;
+  onClose: () => void;
+};
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
+  const { open, onClose } = props;
 
   const handleSave = () => {
-    setOpen(false);
+    console.log("save");
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const [selectedRoom, changeRoom] = React.useState("Demoroom");
-  const [selectedDate, handleDateChange] = React.useState(new Date());
+  const [selectedRoom, changeRoom] = useState("Demoroom");
+  const [selectedDate, handleDateChange] = useState(new Date());
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Event erstellen
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={onClose}>
         <DialogTitle>Event erstellen</DialogTitle>
         <DialogContent>
           <FormControl>
