@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "app_name": "dashboard-backend",
+  "environment_variables": {
+    "DB_NAME": "dashboard"
+  },
+  "stages": {
+    "dev": {
+      "environment_variables": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "5432",
+        "DB_USER": "backend",
+        "DB_PASS": ""
+      }
+    }
+  }
+}
