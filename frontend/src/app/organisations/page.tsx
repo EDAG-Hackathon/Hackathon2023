@@ -1,6 +1,21 @@
 "use client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import {
+  Grid,
+  Avatar,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  TextField,
+  Typography,
+} from "@mui/material";
+import ImageIcon from "@mui/icons-material/Image";
+import Divider from "@mui/material/Divider";
+import { FixedSizeList, ListChildComponentProps } from "react-window";
+import { AccountCircle, SearchOutlined } from "@mui/icons-material";
 
 import Map from "@/components/map";
 
@@ -24,38 +39,32 @@ export default async function Page() {
       <Box sx={{ height: "50vh", width: "100%" }}>
         <Map />
       </Box>
-      <Box sx={{ height: "50vh", width: "100%" }}>
-        Organisationen
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            flexWrap: "wrap",
-            alignItems: "start",
-            paddingLeft: 1,
-          }}
+      <Box sx={{ height: "50vh", width: "100%", color: "primary.main" }}>
+        <Typography variant="h4">Organisationen</Typography>
+        <TextField id="input-with-sx" label="Search" variant="outlined" />
+        <FixedSizeList
+          height={400} // Set the fixed height of the list
+          width="100%" // Set the fixed width of the list
+          itemSize={60} // Set the fixed height of each item
+          itemCount={organisations.length} // Total number of items
         >
-          {organisations.map((organisation) => (
-            <Link
-              key={organisation.id}
-              href={`/organisations/${organisation.id}/buildings`}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 1,
-                  height: 1,
-                  padding: 1,
-                }}
-              >
-                {organisation.name}
-              </Box>
+          {({ index, style }) => (
+            <Link href={`/organisations/${organisations[index].id}/buildings`}>
+              <ListItem style={style}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <ImageIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={organisations[index].name}
+                  secondary={organisations[index].address}
+                />
+              </ListItem>
+              <Divider />
             </Link>
-          ))}
-        </Box>
+          )}
+        </FixedSizeList>
       </Box>
     </main>
   );
