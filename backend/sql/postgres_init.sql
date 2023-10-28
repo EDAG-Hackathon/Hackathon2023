@@ -38,3 +38,8 @@ CREATE TABLE IF NOT EXISTS schedule (
     end_time TIMESTAMP
 );
 
+-- Mockdaten Organizations --
+INSERT INTO organizations (name, image, coordinates, address) VALUES
+('Hochschule Fulda', 'https://example.com/image1.jpg', '{"lat": 50.55755, "lng": 9.6916351}', 'Pappelweg 8, Fulda'),
+('Richard Müller Schule', 'https://www.staubach-partner.de/wp-content/uploads/2016/04/rms-1.jpg', '{"lat": 50.55755, "lng": 9.6916351}', 'Pappelweg 8, Fulda'),
+('Ferdinand Braun Schule', 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Ferdinand-Braun-Schule_Fulda_Eingang.jpg', '{"lat": 50.55836, "lng": 9.6936651}', 'Goerdeler Straße 7, Fulda');
