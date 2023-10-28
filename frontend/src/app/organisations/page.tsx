@@ -2,70 +2,91 @@
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import {
-  Grid,
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  TextField,
-  Typography,
+    Avatar,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    TextField,
+    Typography
 } from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
-import Divider from "@mui/material/Divider";
-import { FixedSizeList, ListChildComponentProps } from "react-window";
-import { AccountCircle, SearchOutlined } from "@mui/icons-material";
+import ImageIcon from '@mui/icons-material/Image';
+import Divider from '@mui/material/Divider';
+import {FixedSizeList, ListChildComponentProps} from 'react-window';
+import {useState} from "react";
 
-import Map from "@/components/map";
+export default function Page() {
+    const [searchQuery, setSearchQuery] = useState('');
 
-type Organisation = {
-  id: string;
-  name: string;
-  image?: string;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  address: string;
-};
+    // Mocked api response
+    const organisations = [
+        {
+            id: "43459e1e-7d12-4e70-9d8d-5bf7eee890bd",
+            name: "Hochschule Fulda",
+            address: "Leipziger Str. 124"
+        },
+        {
+            id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
+            name: "Testschule",
+            address: "Bonifatiusstraße 1"
+        },
+        {
+            id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
+            name: "Bonifatiusschulej",
+            address: "Bonifatiusstraße 8"
+        },
+        {
+            id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
+            name: "Heinrich-von-Bibra-Schule",
+            address: "Heinrich-von-Bibra-Platz 1"
+        },
+        {
+            id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
+            name: "Schule am Rosenbad",
+            address: "Rosenbadstraße 1"
+        }
+    ];
 
-export default async function Page() {
-  const response = await fetch("http://localhost:8000/organizations");
-  const organisations = (await response.json()) as Organisation[];
+    const filteredOrganisations = organisations.filter(org =>
+        org.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
-  return (
-    <main className="flex min-h-screen flex-col items-center">
-      <Box sx={{ height: "50vh", width: "100%" }}>
-        <Map />
-      </Box>
-      <Box sx={{ height: "50vh", width: "100%", color: "primary.main" }}>
-        <Typography variant="h4">Organisationen</Typography>
-        <TextField id="input-with-sx" label="Search" variant="outlined" />
-        <FixedSizeList
-          height={400} // Set the fixed height of the list
-          width="100%" // Set the fixed width of the list
-          itemSize={60} // Set the fixed height of each item
-          itemCount={organisations.length} // Total number of items
-        >
-          {({ index, style }) => (
-            <Link href={`/organisations/${organisations[index].id}/buildings`}>
-              <ListItem style={style}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <ImageIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={organisations[index].name}
-                  secondary={organisations[index].address}
+    return (
+        <main className="flex min-h-screen flex-col items-center">
+            <Box sx={{height: "50vh", width: "100%"}}>
+                <Map />
+            </Box>
+            <Box sx={{height: "50vh", width: "100%", color: "primary.main"}}>
+                <Typography variant="h4">Organisationen</Typography>
+                <TextField
+                    id="input-with-sx"
+                    label="Search"
+                    variant="outlined"
+                    onChange={(e) => setSearchQuery(e.target.value)}
                 />
-              </ListItem>
-              <Divider />
-            </Link>
-          )}
-        </FixedSizeList>
-      </Box>
-    </main>
-  );
+                <FixedSizeList
+                    height={400}
+                    width="100%"
+                    itemSize={60}
+                    itemCount={filteredOrganisations.length}
+                >
+                    {({index, style}) => (
+                        <Link href={`/organisations/${filteredOrganisations[index].id}/buildings`}>
+                            <ListItem style={style}>
+                                <ListItemAvatar>
+                                    <Avatar>
+                                        <ImageIcon/>
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={filteredOrganisations[index].name}
+                                    secondary={filteredOrganisations[index].address}
+                                />
+                            </ListItem>
+                            <Divider/>
+                        </Link>
+                    )}
+                </FixedSizeList>
+            </Box>
+        </main>
+    );
 }
