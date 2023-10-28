@@ -45,4 +45,5 @@ class Appointment(BaseModel):
     title: str
     start_time: datetime
     end_time: datetime
+    recurring: bool = False
     editable: bool = False
