@@ -25,7 +25,7 @@ def get_all_rooms():
 
 @api.route("/rooms/{room_id}", methods=['GET'], cors=cors_config)
 def get_building(room_id: str):
-    building = room_db.get_building(UUID(room_id))
+    building = room_db.get_room(UUID(room_id))
 
     return Response(
         status_code=HTTPStatus.OK,
@@ -38,7 +38,7 @@ def create_building():
     request = api.current_request
     building: Room = parse_model(Room, request.json_body)
 
-    room_db.create_building(building)
+    room_db.create_room(building)
 
     return Response(
         status_code=HTTPStatus.OK,
