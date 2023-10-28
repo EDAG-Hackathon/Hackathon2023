@@ -1,6 +1,6 @@
 import psycopg2.extras
 from chalice import Chalice
-from api.api_organizations import api as api_organizations
+from api.api_organisations import api as api_organisations
 
 app = Chalice("dashboard-backend")
 
@@ -11,4 +11,4 @@ def hello_world():
 
 
 psycopg2.extras.register_uuid()
-app.register_blueprint(api_organizations)
+app.register_blueprint(api_organisations)
