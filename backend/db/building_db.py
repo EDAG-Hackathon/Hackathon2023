@@ -1,5 +1,7 @@
 from uuid import UUID
 
+from chalice import NotFoundError
+
 from models.models import Building
 from util.util import parse_model, get_db_connection, close_db_connection, parse_model_list
 
@@ -11,6 +13,9 @@ def get_building(building_id: UUID) -> Building:
     values = cursor.fetchone()
 
     close_db_connection(connection, cursor)
+
+    if values is None:
+        raise NotFoundError(f"Building not found for id {building_id}")
 
     return parse_model(Building, values)
 

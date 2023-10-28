@@ -57,5 +57,6 @@ CREATE TABLE IF NOT EXISTS appointments (
     room_id UUID REFERENCES rooms(id),
     title VARCHAR(255),
     start_time TIMESTAMP,
-    end_time TIMESTAMP
+    end_time TIMESTAMP,
+    recurring boolean
 );
