@@ -62,11 +62,6 @@ export default function Page() {
             {filteredRooms.map((room) => (
               <Link key={room.id} href={`${pathname}/${room.id}`}>
                 <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ImageIcon/>
-                    </Avatar>
-                  </ListItemAvatar>
                   <ListItemText
                     primary={room.name}
                     secondary={room.number}
