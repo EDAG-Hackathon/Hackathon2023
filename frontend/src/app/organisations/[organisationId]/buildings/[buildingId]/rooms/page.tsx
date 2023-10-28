@@ -5,18 +5,14 @@ import { usePathname } from "next/navigation";
 
 export default function Page() {
   // Mocked api response
-  const buildings = [
+  const rooms = [
     {
-      id: "43459e1e-7d12-4e70-9d8d-5bf7eee890ba",
-      name: "Halle 8",
+      id: "73459e1e-7d12-4e70-9d8d-5bf7eee890ba",
+      name: "Raum 1",
     },
     {
-      id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bb",
-      name: "Gebäude 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bc",
-      name: "Gebäude 2",
+      id: "83659e1e-7d12-4e70-9d8d-5bf7eee890bb",
+      name: "Raum 2",
     },
   ];
 
@@ -24,9 +20,8 @@ export default function Page() {
 
   return (
     <>
-      <Box sx={{ height: "50vh", width: "100%" }}>Karte (Gebäudeplan)</Box>
-      <Box sx={{ height: "50vh", width: "100%" }}>
-        Gebäude
+      <Box sx={{ height: "100%", width: "100%" }}>
+        Raumliste
         <Box
           sx={{
             display: "flex",
@@ -36,8 +31,8 @@ export default function Page() {
             paddingLeft: 1,
           }}
         >
-          {buildings.map((building) => (
-            <Link key={building.id} href={`${pathname}/${building.id}/rooms`}>
+          {rooms.map((room) => (
+            <Link key={room.id} href={`${pathname}/${room.id}`}>
               <Box
                 sx={{
                   display: "flex",
@@ -49,7 +44,7 @@ export default function Page() {
                   padding: 1,
                 }}
               >
-                {building.name}
+                {room.name}
               </Box>
             </Link>
           ))}

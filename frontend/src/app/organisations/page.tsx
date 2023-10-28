@@ -36,7 +36,7 @@ export default function Page() {
           {organisations.map((organisation) => (
             <Link
               key={organisation.id}
-              href={`/organisations/${organisation.id}`}
+              href={`/organisations/${organisation.id}/buildings`}
             >
               <Box
                 sx={{
