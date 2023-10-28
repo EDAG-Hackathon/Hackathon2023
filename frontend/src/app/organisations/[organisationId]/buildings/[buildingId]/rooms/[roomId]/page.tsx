@@ -16,7 +16,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
   });
 
   useEffect(() => {
-    fetch("https://mocki.io/v1/05aefa64-da1a-4103-974c-904b8038b37b")
+    fetch(`http://localhost:8000/api/rooms/${selectedRoom.id}`)
       .then((res) => res.json())
       .then((data) => {
         setSelectedRoom(data);
