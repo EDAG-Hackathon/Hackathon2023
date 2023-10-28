@@ -2,6 +2,7 @@ from http import HTTPStatus
 from uuid import UUID
 
 from chalice import Blueprint, Response, BadRequestError
+from pydantic_core import ValidationError
 
 from api.constants import cors_config
 from db import organisation_db
@@ -40,7 +41,10 @@ def get_organisation(organisation_id: str):
 @api.route("/organisations", methods=['POST'], cors=cors_config)
 def create_organisation():
     request = api.current_request
-    organisation: Organisation = parse_model(Organisation, request.json_body)
+    try:
+        organisation: Organisation = parse_model(Organisation, request.json_body)
+    except ValidationError as e:
+        raise BadRequestError(str(e))
 
     organisation_db.create_organisation(organisation)
 

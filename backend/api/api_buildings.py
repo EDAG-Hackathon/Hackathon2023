@@ -2,6 +2,7 @@ from http import HTTPStatus
 from uuid import UUID
 
 from chalice import Blueprint, Response, BadRequestError
+from pydantic_core import ValidationError
 
 from api.constants import cors_config
 from db import building_db
@@ -46,7 +47,11 @@ def get_building(building_id: str):
 @api.route("/buildings", methods=['POST'], cors=cors_config)
 def create_building():
     request = api.current_request
-    building: Building = parse_model(Building, request.json_body)
+
+    try:
+        building: Building = parse_model(Building, request.json_body)
+    except ValidationError as e:
+        raise BadRequestError(str(e))
 
     building_db.create_building(building)
 

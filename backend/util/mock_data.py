@@ -11,8 +11,8 @@ def generate_mock_data():
             "name": "Hochschule Fulda",
             "image": "https://example.com/image1.jpg",
             "coordinates": {
-                "lat": 50.55755,
-                "lng": 9.6916351
+                "lat": 50.5646486,
+                "lng": 9.6836436
             },
             "address": "Leipziger Strasse 123, Fulda"
         },
@@ -38,31 +38,58 @@ def generate_mock_data():
 
     buildings = [
         {
-            "name": "Gebäude A1",
-            "number": "A1",
+            "name": "Hochschul- und Landesbibliothek",
+            "number": "BIB",
             "coordinates": {
-                "lat": 50.55755,
-                "lng": 9.6916351
+                "lat": 50.5645872,
+                "lng": 9.6829463
             },
             "address": "Leipziger Strasse 123, Fulda"
         },
         {
-            "name": "Gebäude A2",
-            "number": "A2",
+            "name": "Gebäude 33 (K)",
+            "number": "33",
             "coordinates": {
-                "lat": 50.55755,
-                "lng": 9.6916351
+                "lat": 50.5645464,
+                "lng": 9.6820259
             },
-            "address": "Leipziger Strasse 123, Fulda"
+            "address": "Ludwig-Beck-Straße 54, 36039 Fulda"
         },
         {
-            "name": "Gebäude A3",
-            "number": "A3",
+            "name": "Gebäude 41 (B)",
+            "number": "41",
             "coordinates": {
-                "lat": 50.55836,
-                "lng": 9.6936651
+                "lat": 50.5645464,
+                "lng": 9.6820259
             },
-            "address": "Leipziger Strasse 123, Fulda"
+            "address": "Marquardstraße 35, 36039 Fulda"
+        },
+        {
+            "name": "Gebäude 54",
+            "number": "54",
+            "coordinates": {
+                "lat": 50.5655019,
+                "lng": 9.6657814
+            },
+            "address": "Moltkestraße 30, 36039 Fulda"
+        },
+        {
+            "name": "Cafe Chaos",
+            "number": "CC",
+            "coordinates": {
+                "lat": 50.5651664,
+                "lng": 9.6825301
+            },
+            "address": "Marquardstraße 35, 36039 Fulda"
+        },
+        {
+            "name": "Studierendenwerk Giessen",
+            "number": "SG",
+            "coordinates": {
+                "lat": 50.566652,
+                "lng": 9.6858024
+            },
+            "address": "Daimler-Benz-Straße 5A, 36039 Fulda"
         }
     ]
 
