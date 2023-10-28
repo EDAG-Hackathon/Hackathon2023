@@ -9,7 +9,7 @@ import {
   ListItemAvatar,
   ListItemText,
   TextField,
-  Typography,
+  Typography, Container,
 } from "@mui/material";
 import Map from "@/components/map";
 import Divider from "@mui/material/Divider";
@@ -40,10 +40,10 @@ export default function Page() {
   );
 
   return (
-    <main className="flex min-h-screen flex-col items-center">
-      <Box sx={{height: "100vh", width: "100%", position: "relative"}}>
+    <div>
+      <Box height="100vh" width="100%">
         <Map/>
-        <Box
+        <Card
           sx={{
             padding: "1rem",
             backgroundColor: "white",
@@ -55,48 +55,45 @@ export default function Page() {
             width: "400px",
             color: "primary.main",
             overflow: "scroll",
-            marginLeft: "1rem",
+            marginBottom: "1rem",
           }}
         >
-          <Card>
-            <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
-              <Box sx={{marginBottom: "1rem", textAlign: "center"}}>
-                <Typography variant="h4">Organisationen</Typography>
-              </Box>
-              <TextField
-                id="input-with-sx"
-                label="Search"
-                variant="outlined"
-                sx={{
-                  marginLeft: "1rem",
-                  marginRight: "1rem",
-                  width: "calc(100% - 2rem)",
-                }}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+          <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
+            <Box sx={{marginBottom: "1rem", textAlign: "center"}}>
+              <Typography variant="h4">Organisationen</Typography>
             </Box>
-            <List>
-              {filteredOrganisations.map((organisation) => (
-                <Link
-                  key={organisation.id}
-                  href={`organisations/${organisation.id}/buildings`}
-                >
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar src={organisation.image}></Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={organisation.name}
-                      secondary={organisation.address}
-                    />
-                  </ListItem>
-                  <Divider/>
-                </Link>
-              ))}
-            </List>
-          </Card>
-        </Box>
+            <TextField
+              id="input-with-sx"
+              label="Search"
+              variant="outlined"
+              sx={{
+                marginLeft: "1rem",
+                marginRight: "1rem",
+                width: "calc(100% - 2rem)",
+              }}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </Box>
+          <List>
+            {filteredOrganisations.map((organisation) => (
+              <Link
+                key={organisation.id}
+                href={`organisations/${organisation.id}/buildings`}
+              >
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar src={organisation.image}></Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={organisation.name}
+                    secondary={organisation.address}
+                  />
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+        </Card>
       </Box>
-    </main>
+    </div>
   );
 }
