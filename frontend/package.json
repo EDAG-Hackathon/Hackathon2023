@@ -17,6 +17,8 @@
     "@fullcalendar/react": "^6.1.9",
     "@fullcalendar/timegrid": "^6.1.9",
     "@mui/material": "^5.14.15",
+    "@mui/x-date-pickers": "^6.17.0",
+    "dayjs": "^1.11.10",
     "next": "14.0.0",
     "next-transpile-modules": "^10.0.1",
     "react": "^18",
