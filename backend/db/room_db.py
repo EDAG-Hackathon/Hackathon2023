@@ -29,8 +29,10 @@ def get_all_rooms() -> list[Room]:
 def create_room(room: Room) -> Room:
     connection, cursor = get_db_connection()
 
-    cursor.execute("INSERT INTO rooms(id, name, building_id, coordinates, address) VALUES (%s, %s, %s, %s, %s)",
-                   (str(room.id), room.name, str(room.building_id), room.coordinates.model_dump_json(), room.address))
+    cursor.execute(
+        "INSERT INTO rooms(id, name, number, building_id, room_temp_occupied, room_temp_unoccupied, room_humidity) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+        (str(room.id), room.name, room.number, str(room.building_id), room.room_temp_occupied,
+         room.room_temp_unoccupied, room.room_humidity))
     connection.commit()
 
     close_db_connection(connection, cursor)

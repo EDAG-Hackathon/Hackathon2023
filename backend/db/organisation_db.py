@@ -37,3 +37,12 @@ def create_organisation(organisation: Organisation) -> Organisation:
     close_db_connection(connection, cursor)
 
     return organisation
+
+
+def organisations_exists() -> bool:
+    connection, cursor = get_db_connection()
+
+    cursor.execute("SELECT count(*) FROM organisations;")
+    result = cursor.fetchone()
+
+    return result['count'] > 0

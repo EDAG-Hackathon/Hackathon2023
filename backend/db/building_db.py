@@ -29,8 +29,10 @@ def get_all_buildings() -> list[Building]:
 def create_building(building: Building) -> Building:
     connection, cursor = get_db_connection()
 
-    cursor.execute("INSERT INTO buildings(id, name, organisation_id, coordinates, address) VALUES (%s, %s, %s, %s, %s)",
-                   (str(building.id), building.name, str(building.organisation_id), building.coordinates.model_dump_json(), building.address))
+    cursor.execute(
+        "INSERT INTO buildings(id, name, organisation_id, coordinates, address, room_temp_occupied, room_temp_unoccupied, room_humidity) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+        (str(building.id), building.name, str(building.organisation_id), building.coordinates.model_dump_json(),
+         building.address, building.room_temp_occupied, building.room_temp_unoccupied, building.room_humidity))
     connection.commit()
 
     close_db_connection(connection, cursor)
