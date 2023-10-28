@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@babel/preset-react": "^7.22.15",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@fullcalendar/common": "^5.11.5",
     "@fullcalendar/interaction": "^6.1.9",
     "@fullcalendar/react": "^6.1.9",
@@ -18,7 +20,8 @@
     "next": "14.0.0",
     "next-transpile-modules": "^10.0.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind": "^4.0.0"
   },
   "devDependencies": {
     "typescript": "^5",
