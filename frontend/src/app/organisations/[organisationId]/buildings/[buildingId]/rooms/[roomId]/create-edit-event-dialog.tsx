@@ -14,15 +14,17 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicke
 import { useState } from "react";
 
 type CreateEditEventDialogProps = {
-  open: boolean;
+  isModalOpen: boolean;
   onClose: () => void;
 };
 
 export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
-  const { open, onClose } = props;
+  const { isModalOpen = false, onClose } = props;
 
   const handleSave = () => {
+    //API CALL
     console.log("save");
+    onClose();
   };
 
   const [selectedRoom, changeRoom] = useState("Demoroom");
@@ -30,7 +32,7 @@ export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
 
   return (
     <div>
-      <Dialog open={true} onClose={onClose}>
+      <Dialog open={isModalOpen} onClose={onClose}>
         <DialogTitle>Event erstellen</DialogTitle>
         <DialogContent>
           <FormControl>

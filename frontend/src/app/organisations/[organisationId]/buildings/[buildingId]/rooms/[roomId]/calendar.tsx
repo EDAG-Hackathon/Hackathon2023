@@ -7,6 +7,11 @@ import { CreateEditEventDialog } from "./create-edit-event-dialog";
 export function Calendar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [events, setEvents] = useState([
+    { title: "event 1", date: "2023-10-30" },
+    { title: "event 2", date: "2023-10-29" },
+  ]);
+
   function handleSelect() {
     setIsModalOpen(true);
   }
@@ -17,17 +22,19 @@ export function Calendar() {
 
   return (
     <div>
-      <CreateEditEventDialog open={isModalOpen} onClose={handleModalClose} />
+      <CreateEditEventDialog
+        isModalOpen={isModalOpen}
+        onClose={handleModalClose}
+      />
       <FullCalendar
         editable
         selectable
-        // events={events}
+        events={events}
         select={handleSelect}
         headerToolbar={{
           start: "today prev next",
           end: "dayGridMonth dayGridWeek dayGridDay",
         }}
-        // eventContent={(info) => <EventItem info={info} />}
         plugins={[dayGridPlugin, interactionPlugin]}
         // views={["dayGridMonth", "dayGridWeek", "dayGridDay"]}
       />
