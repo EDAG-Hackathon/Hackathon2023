@@ -9,7 +9,7 @@ def generate_mock_data():
     organisations = [
         {
             "name": "Hochschule Fulda",
-            "image": "https://example.com/image1.jpg",
+            "image": "https://www.hs-fulda.de/fileadmin/_processed_/9/6/csm_Blick_auf_Mensa_1ed3503d14.jpg",
             "coordinates": {
                 "lat": 50.55755,
                 "lng": 9.6916351
