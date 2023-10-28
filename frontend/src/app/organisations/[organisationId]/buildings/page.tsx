@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import Map from "@/components/map";
+
 export default function Page() {
   // Mocked api response
   const buildings = [
@@ -24,7 +26,9 @@ export default function Page() {
 
   return (
     <>
-      <Box sx={{ height: "50vh", width: "100%" }}>Karte (Gebäudeplan)</Box>
+      <Box sx={{ height: "50vh", width: "100%" }}>
+        <Map />
+      </Box>
       <Box sx={{ height: "50vh", width: "100%" }}>
         Gebäude
         <Box
