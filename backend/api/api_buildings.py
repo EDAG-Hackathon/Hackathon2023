@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from uuid import UUID
 
-from chalice import Blueprint, Response
+from chalice import Blueprint, Response, BadRequestError
 
 from api.constants import cors_config
 from db import building_db
@@ -31,7 +31,11 @@ def get_all_buildings():
 
 @api.route("/buildings/{building_id}", methods=['GET'], cors=cors_config)
 def get_building(building_id: str):
-    building = building_db.get_building(UUID(building_id))
+    try:
+        uuid = UUID(building_id)
+    except ValueError:
+        raise BadRequestError(f"{building_id} is not a valid id")
+    building = building_db.get_building(uuid)
 
     return Response(
         status_code=HTTPStatus.OK,

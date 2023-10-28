@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from uuid import UUID
 
-from chalice import Blueprint, Response
+from chalice import Blueprint, Response, BadRequestError
 
 from api.constants import cors_config
 from db import organisation_db
@@ -25,7 +25,11 @@ def get_all_organisations():
 
 @api.route("/organisations/{organisation_id}", methods=['GET'], cors=cors_config)
 def get_organisation(organisation_id: str):
-    organisation = organisation_db.get_organisation(UUID(organisation_id))
+    try:
+        uuid = UUID(organisation_id)
+    except ValueError:
+        raise BadRequestError(f"{organisation_id} is not a valid id")
+    organisation = organisation_db.get_organisation(uuid)
 
     return Response(
         status_code=HTTPStatus.OK,
