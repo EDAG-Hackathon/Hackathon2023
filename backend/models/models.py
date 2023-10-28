@@ -14,3 +14,4 @@ class Organization(BaseModel):
     name: str
     image: Optional[str] = None
     coordinates: Coordinates
+    address: str
