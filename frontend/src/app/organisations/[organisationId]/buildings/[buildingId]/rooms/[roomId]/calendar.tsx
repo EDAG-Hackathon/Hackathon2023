@@ -34,7 +34,14 @@ export function Calendar(params: { selectedRoom: Room }) {
   const { data, error, isLoading } = useFetch<Appointment[]>(
     `http://localhost:8000/api/appointments?room_id=${params.selectedRoom.id}`
   );
-  const appointments = data || [];
+  const appointments =
+    data?.map((element: any) => {
+      return {
+        ...element,
+        start: element.start_time,
+        end: element.end_time,
+      };
+    }) || [];
 
   return (
     <div>
