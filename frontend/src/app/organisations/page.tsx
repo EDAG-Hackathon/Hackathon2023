@@ -13,9 +13,9 @@ import {
 import Map from "@/components/map";
 import ImageIcon from "@mui/icons-material/Image";
 import Divider from "@mui/material/Divider";
-import { useState } from "react";
+import {useState} from "react";
 
-import { useFetch } from "@/hooks/use-fetch";
+import {useFetch} from "@/hooks/use-fetch";
 
 type Organisation = {
   id: string;
@@ -31,7 +31,7 @@ type Organisation = {
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data, error, isLoading } = useFetch<Organisation[]>(
+  const {data, error, isLoading} = useFetch<Organisation[]>(
     "http://localhost:8000/api/organisations"
   );
   const organisations = data || [];
@@ -42,8 +42,8 @@ export default function Page() {
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <Box sx={{ height: "50vh", width: "100%" }}>
-        <Map />
+      <Box sx={{height: "50vh", width: "100%"}}>
+        <Map/>
       </Box>
       <Box
         sx={{
@@ -52,10 +52,13 @@ export default function Page() {
           width: "100%",
           color: "primary.main",
           overflow: "scroll",
+          marginLeft: "1rem",
         }}
       >
-        <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
-          <Typography variant="h4">Organisationen</Typography>
+        <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
+          <Box sx={{marginBottom: "1rem"}}>
+            <Typography variant="h4">Organisationen</Typography>
+          </Box>
           <TextField
             id="input-with-sx"
             label="Search"
@@ -72,7 +75,7 @@ export default function Page() {
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>
-                    <ImageIcon />
+                    <ImageIcon/>
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -80,7 +83,7 @@ export default function Page() {
                   secondary={organisation.address}
                 />
               </ListItem>
-              <Divider />
+              <Divider/>
             </Link>
           ))}
         </List>

@@ -1,62 +1,109 @@
 "use client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {usePathname} from "next/navigation";
 
 import Map from "@/components/map";
+import {useState} from "react";
+import {useFetch} from "@/hooks/use-fetch";
+import {
+  Avatar,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  TextField,
+  Typography,
+} from "@mui/material";
+import ImageIcon from "@mui/icons-material/Image";
+import Divider from "@mui/material/Divider";
+
+/*
+ id: UUID
+    organisation_id: UUID
+    name: str
+    coordinates: Coordinates
+    address: str
+    room_temp_occupied: float
+    room_temp_unoccupied: float
+    room_humidity: float
+ */
+type Building = {
+  id: string;
+  organisation_id: string;
+  name: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  address: string;
+  room_temp_occupied: number;
+  room_temp_unoccupied: number;
+  room_humidity: number;
+};
 
 export default function Page() {
-  // Mocked api response
-  const buildings = [
-    {
-      id: "43459e1e-7d12-4e70-9d8d-5bf7eee890ba",
-      name: "Halle 8",
-    },
-    {
-      id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bb",
-      name: "Gebäude 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bc",
-      name: "Gebäude 2",
-    },
-  ];
+  const [searchQuery, setSearchQuery] = useState("");
 
   const pathname = usePathname();
+  const organisation_id = pathname.split("/")[2];
+  const {data,error, isLoading} = useFetch<Building[]>(
+    `http://localhost:8000/api/buildings?organisation_id=${organisation_id}`
+  );
+
+  // Mocked api response
+  const buildings = data || [];
+
+  const filteredBuildings = buildings.filter((building) =>
+    building.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
 
   return (
     <>
-      <Box sx={{ height: "50vh", width: "100%" }}>
-        <Map />
+      <Box sx={{height: "50vh", width: "100%"}}>
+        <Map/>
       </Box>
-      <Box sx={{ height: "50vh", width: "100%" }}>
-        Gebäude
+      <Box sx={{height: "50vh", width: "100%"}}>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            flexWrap: "wrap",
-            alignItems: "start",
-            paddingLeft: 1,
+            height: "50vh",
+            maxHeight: "50vh",
+            width: "100%",
+            color: "primary.main",
+            overflow: "scroll",
+            marginLeft: "1rem",
           }}
         >
-          {buildings.map((building) => (
-            <Link key={building.id} href={`${pathname}/${building.id}/rooms`}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 1,
-                  height: 1,
-                  padding: 1,
-                }}
-              >
-                {building.name}
-              </Box>
-            </Link>
-          ))}
+          <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
+            <Box sx={{marginBottom: "1rem"}}>
+              <Typography variant="h4">Gebäude</Typography>
+            </Box>
+            <TextField
+              id="input-with-sx"
+              label="Search"
+              variant="outlined"
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </Box>
+          <List>
+            {filteredBuildings.map((building) => (
+              <Link key={building.id} href={`${pathname}/${building.id}/rooms`}>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ImageIcon/>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={building.name}
+                    secondary={building.address}
+                  />
+                </ListItem>
+                <Divider/>
+              </Link>
+            ))}
+          </List>
         </Box>
       </Box>
     </>
