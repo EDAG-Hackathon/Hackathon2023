@@ -1,34 +1,30 @@
-import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
-import React from "react";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
+import { useState } from "react";
 
-export function CreateEditEventDialog() {
-    const [open, setOpen] = React.useState(false);
+type CreateEditEventDialogProps = {
+  open: boolean;
+  onClose: () => void;
+};
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
+export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
+  const { open, onClose } = props;
 
-    return (
-        <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Event erstellen
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Event erstellen</DialogTitle>
-                <DialogContent>
-                    <DialogContentText></DialogContentText>
-                    <TextField
-                        id="event-name"
-                        type="text"
-                        fullWidth
-                        variant="outlined"
-                    />
-                </DialogContent>
-            </Dialog>
-        </div>
-    );
+  return (
+    <div>
+      <Dialog open={open} onClose={onClose}>
+        <DialogTitle>Event erstellen</DialogTitle>
+        <DialogContent>
+          <DialogContentText></DialogContentText>
+          <TextField id="event-name" type="text" fullWidth variant="outlined" />
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
 }
