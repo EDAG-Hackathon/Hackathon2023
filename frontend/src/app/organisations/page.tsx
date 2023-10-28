@@ -1,10 +1,21 @@
 "use client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
-import {Avatar, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Typography} from "@mui/material";
+import {
+    Grid,
+    Avatar,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemButton,
+    ListItemText,
+    TextField,
+    Typography
+} from "@mui/material";
 import ImageIcon from '@mui/icons-material/Image';
 import Divider from '@mui/material/Divider';
 import {FixedSizeList, ListChildComponentProps} from 'react-window';
+import {AccountCircle, SearchOutlined} from "@mui/icons-material";
 
 export default function Page() {
     // Mocked api response
@@ -61,6 +72,7 @@ export default function Page() {
             <Box sx={{height: "50vh", width: "100%"}}>Karte</Box>
             <Box sx={{height: "50vh", width: "100%", color: "primary.main"}}>
                 <Typography variant="h4">Organisationen</Typography>
+                <TextField id="input-with-sx" label="Search" variant="outlined" />
                 <FixedSizeList
                     height={400} // Set the fixed height of the list
                     width="100%" // Set the fixed width of the list
