@@ -1,7 +1,8 @@
 from http import HTTPStatus
 from uuid import UUID
 
-from chalice import Blueprint, Response
+from chalice import Blueprint, Response, BadRequestError
+from pydantic_core import ValidationError
 
 from api.constants import cors_config
 from db import appointment_db
@@ -31,7 +32,11 @@ def get_all_appointments():
 
 @api.route("/appointments/{appointment_id}", methods=['GET'], cors=cors_config)
 def get_appointment(appointment_id: str):
-    appointment = appointment_db.get_appointment(UUID(appointment_id))
+    try:
+        uuid = UUID(appointment_id)
+    except ValueError:
+        raise BadRequestError(f"{appointment_id} is not a valid id")
+    appointment = appointment_db.get_appointment(uuid)
 
     return Response(
         status_code=HTTPStatus.OK,
@@ -42,7 +47,10 @@ def get_appointment(appointment_id: str):
 @api.route("/appointments", methods=['POST'], cors=cors_config)
 def create_appointment():
     request = api.current_request
-    appointment: Appointment = parse_model(Appointment, request.json_body)
+    try:
+        appointment: Appointment = parse_model(Appointment, request.json_body)
+    except ValidationError as e:
+        raise BadRequestError(str(e))
 
     appointment_db.create_appointment(appointment)
 

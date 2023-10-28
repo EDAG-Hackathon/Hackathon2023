@@ -16,6 +16,7 @@ import Divider from "@mui/material/Divider";
 import {useState} from "react";
 
 import {useFetch} from "@/hooks/use-fetch";
+import {AccountBalance} from "@mui/icons-material";
 
 type Organisation = {
   id: string;
@@ -74,8 +75,7 @@ export default function Page() {
             >
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar>
-                    <ImageIcon/>
+                  <Avatar src={organisation.image} >
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText

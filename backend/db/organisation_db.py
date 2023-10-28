@@ -1,5 +1,7 @@
 from uuid import UUID
 
+from chalice import NotFoundError
+
 from models.models import Organisation
 from util.util import parse_model, get_db_connection, close_db_connection, parse_model_list
 
@@ -9,6 +11,9 @@ def get_organisation(organisation_id: UUID) -> Organisation:
 
     cursor.execute("SELECT * FROM organisations WHERE id=%s;", [str(organisation_id)])
     values = cursor.fetchone()
+
+    if values is None:
+        raise NotFoundError(f"Organisation not found for id {organisation_id}")
 
     close_db_connection(connection, cursor)
 

@@ -16,7 +16,9 @@ export default function RootLayout({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
       <html lang="de">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className} style={{ margin: 0 }}>
+          {children}
+        </body>
       </html>
     </LocalizationProvider>
   );
