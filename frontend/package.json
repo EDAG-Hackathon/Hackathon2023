@@ -9,9 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.22.15",
+    "@fullcalendar/common": "^5.11.5",
+    "@fullcalendar/interaction": "^6.1.9",
+    "@fullcalendar/react": "^6.1.9",
+    "@fullcalendar/timegrid": "^6.1.9",
+    "next": "14.0.0",
+    "next-transpile-modules": "^10.0.1",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.0"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "typescript": "^5",
