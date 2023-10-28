@@ -1,5 +1,7 @@
 from uuid import UUID
 
+from chalice import NotFoundError
+
 from models.models import Appointment
 from util.util import parse_model, get_db_connection, close_db_connection, parse_model_list
 
@@ -9,6 +11,9 @@ def get_appointment(appointment_id: UUID) -> Appointment:
 
     cursor.execute("SELECT * FROM appointments WHERE id=%s;", [str(appointment_id)])
     values = cursor.fetchone()
+
+    if values is None:
+        raise NotFoundError(f"Appointment not found for id {appointment_id}")
 
     close_db_connection(connection, cursor)
 
