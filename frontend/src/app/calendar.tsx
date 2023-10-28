@@ -1,20 +1,23 @@
 import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 
 export function Calendar() {
   return (
     <div>
-      <h1>Mein Kalender</h1>
       <FullCalendar
-        plugins={[dayGridPlugin]}
-        initialView="dayGridMonth"
-        events={
-          [
-            // Hier können Sie Ihre Ereignisse definieren
-            // Beispiel: { title: 'Event 1', date: '2023-10-28' },
-          ]
-        }
+        headerToolbar={{
+          start: "today prev next",
+          end: "dayGridMonth dayGridWeek dayGridDay",
+        }}
+        events={[{ title: "Belegt", date: "2023-10-28" }]}
+        // headerToolbar={{
+        //   start: "today prev next",
+        //   end: "dayGridMonth dayGridWeek dayGridDay",
+        // }}
+        plugins={[dayGridPlugin, interactionPlugin]}
+        // views={["dayGridMonth", "dayGridWeek", "dayGridDay"]}
       />
     </div>
   );
