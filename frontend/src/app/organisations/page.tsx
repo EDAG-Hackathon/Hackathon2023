@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import Map from "@/components/map";
 import Divider from "@mui/material/Divider";
-import {useState} from "react";
-import {useFetch} from "@/hooks/use-fetch";
+import { useState } from "react";
+import { useFetch } from "@/hooks/use-fetch";
 
 type Organisation = {
   id: string;
@@ -29,7 +29,7 @@ type Organisation = {
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const {data, error, isLoading} = useFetch<Organisation[]>(
+  const { data, error, isLoading } = useFetch<Organisation[]>(
     "http://localhost:8000/api/organisations"
   );
   const organisations = data || [];
@@ -39,9 +39,9 @@ export default function Page() {
   );
 
   return (
-    <main className="flex min-h-screen flex-col items-center">
-      <Box sx={{height: "50vh", width: "100%"}}>
-        <Map/>
+    <div className="flex min-h-screen flex-col items-center">
+      <Box sx={{ height: "50vh", width: "100%" }}>
+        <Map />
       </Box>
       <Box
         sx={{
@@ -53,8 +53,8 @@ export default function Page() {
           marginLeft: "1rem",
         }}
       >
-        <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
-          <Box sx={{marginBottom: "1rem"}}>
+        <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
+          <Box sx={{ marginBottom: "1rem" }}>
             <Typography variant="h4">Organisationen</Typography>
           </Box>
           <TextField
@@ -72,19 +72,18 @@ export default function Page() {
             >
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar src={organisation.image} >
-                  </Avatar>
+                  <Avatar src={organisation.image}></Avatar>
                 </ListItemAvatar>
                 <ListItemText
                   primary={organisation.name}
                   secondary={organisation.address}
                 />
               </ListItem>
-              <Divider/>
+              <Divider />
             </Link>
           ))}
         </List>
       </Box>
-    </main>
+    </div>
   );
 }
