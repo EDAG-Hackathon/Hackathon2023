@@ -9,9 +9,17 @@ class Coordinates(BaseModel):
     lng: float
 
 
-class Organization(BaseModel):
+class Organisation(BaseModel):
     id: UUID
     name: str
     image: Optional[str] = None
+    coordinates: Coordinates
+    address: str
+
+
+class Building(BaseModel):
+    id: UUID
+    organisation_id: UUID
+    name: str
     coordinates: Coordinates
     address: str
