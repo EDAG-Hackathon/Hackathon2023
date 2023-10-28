@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import Calendar from "./calendar";
+import { Calendar } from "./calendar";
 
 export default function Home() {
   return (

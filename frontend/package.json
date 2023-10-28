@@ -11,6 +11,7 @@
   "dependencies": {
     "@babel/preset-react": "^7.22.15",
     "@fullcalendar/common": "^5.11.5",
+    "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/interaction": "^6.1.9",
     "@fullcalendar/react": "^6.1.9",
     "@fullcalendar/timegrid": "^6.1.9",
