@@ -1,12 +1,17 @@
-from flask import Flask
+import psycopg2.extras
+from chalice import Chalice
 
-app = Flask(__name__)
+from api.api_buildings import api as api_buildings
+from api.api_organisations import api as api_organisations
+
+app = Chalice("dashboard-backend")
 
 
 @app.route("/")
 def hello_world():
-    return "<h1>Backend running</h1>"
+    return {"hello": "world"}
 
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+psycopg2.extras.register_uuid()
+app.register_blueprint(api_organisations, url_prefix="/api")
+app.register_blueprint(api_buildings, url_prefix="/api")

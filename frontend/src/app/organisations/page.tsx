@@ -1,59 +1,89 @@
 "use client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import {
+  Avatar,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Map from "@/components/map";
+import ImageIcon from "@mui/icons-material/Image";
+import Divider from "@mui/material/Divider";
+import { useState } from "react";
+
+import { useFetch } from "@/hooks/use-fetch";
+
+type Organisation = {
+  id: string;
+  name: string;
+  address: string;
+  image?: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+};
 
 export default function Page() {
-  // Mocked api response
-  const organisations = [
-    {
-      id: "43459e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Hochschule Fulda",
-    },
-    {
-      id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Testschule",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Propsteihaus Petersberg",
-    },
-  ];
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { data, error, isLoading } = useFetch<Organisation[]>(
+    "http://localhost:8000/api/organisations"
+  );
+  const organisations = data || [];
+
+  const filteredOrganisations = organisations.filter((org) =>
+    org.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <Box sx={{ height: "50vh", width: "100%" }}>Karte</Box>
       <Box sx={{ height: "50vh", width: "100%" }}>
-        Organisationen
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            flexWrap: "wrap",
-            alignItems: "start",
-            paddingLeft: 1,
-          }}
-        >
-          {organisations.map((organisation) => (
+        <Map />
+      </Box>
+      <Box
+        sx={{
+          height: "50vh",
+          maxHeight: "50vh",
+          width: "100%",
+          color: "primary.main",
+          overflow: "scroll",
+        }}
+      >
+        <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
+          <Typography variant="h4">Organisationen</Typography>
+          <TextField
+            id="input-with-sx"
+            label="Search"
+            variant="outlined"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </Box>
+        <List>
+          {filteredOrganisations.map((organisation) => (
             <Link
               key={organisation.id}
-              href={`/organisations/${organisation.id}/buildings`}
+              href={`organisations/${organisation.id}/buildings`}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 1,
-                  height: 1,
-                  padding: 1,
-                }}
-              >
-                {organisation.name}
-              </Box>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <ImageIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={organisation.name}
+                  secondary={organisation.address}
+                />
+              </ListItem>
+              <Divider />
             </Link>
           ))}
-        </Box>
+        </List>
       </Box>
     </main>
   );
