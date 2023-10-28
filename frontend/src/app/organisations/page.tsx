@@ -11,12 +11,9 @@ import {
   Typography,
 } from "@mui/material";
 import Map from "@/components/map";
-import ImageIcon from "@mui/icons-material/Image";
 import Divider from "@mui/material/Divider";
 import {useState} from "react";
-
 import {useFetch} from "@/hooks/use-fetch";
-import {AccountBalance} from "@mui/icons-material";
 
 type Organisation = {
   id: string;
