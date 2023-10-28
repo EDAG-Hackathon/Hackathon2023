@@ -38,3 +38,14 @@ def create_room(room: Room) -> Room:
     close_db_connection(connection, cursor)
 
     return room
+
+
+def get_all_rooms_for_building(building_id: UUID) -> list[Room]:
+    connection, cursor = get_db_connection()
+
+    cursor.execute("SELECT * FROM rooms WHERE building_id=%s;", [str(building_id)])
+    values = cursor.fetchall()
+
+    close_db_connection(connection, cursor)
+
+    return parse_model_list(Room, values)

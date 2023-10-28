@@ -13,7 +13,13 @@ api = Blueprint(__name__)
 
 @api.route("/buildings", methods=['GET'], cors=cors_config)
 def get_all_buildings():
-    buildings = building_db.get_all_buildings()
+    params = api.current_request.query_params
+    if params is None:
+        buildings = building_db.get_all_buildings()
+    else:
+        buildings = []
+        if 'organisation_id' in params:
+            buildings = building_db.get_buildings_of_organisation(UUID(params['organisation_id']))
 
     body = [building.model_dump(mode='json') for building in buildings]
 

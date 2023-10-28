@@ -38,3 +38,14 @@ def create_building(building: Building) -> Building:
     close_db_connection(connection, cursor)
 
     return building
+
+
+def get_buildings_of_organisation(organisation_id: UUID) -> list[Building]:
+    connection, cursor = get_db_connection()
+
+    cursor.execute("SELECT * FROM buildings WHERE organisation_id=%s;", [str(organisation_id)])
+    values = cursor.fetchall()
+
+    close_db_connection(connection, cursor)
+
+    return parse_model_list(Building, values)
