@@ -18,16 +18,6 @@ import {
 import ImageIcon from "@mui/icons-material/Image";
 import Divider from "@mui/material/Divider";
 
-/*
- id: UUID
-    organisation_id: UUID
-    name: str
-    coordinates: Coordinates
-    address: str
-    room_temp_occupied: float
-    room_temp_unoccupied: float
-    room_humidity: float
- */
 type Building = {
   id: string;
   organisation_id: string;
