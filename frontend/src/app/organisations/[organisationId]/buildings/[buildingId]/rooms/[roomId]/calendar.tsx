@@ -3,8 +3,9 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { CreateEditEventDialog } from "./create-edit-event-dialog";
+import { Room } from "./page";
 
-export function Calendar(params: { id: string }) {
+export function Calendar(params: { selectedRoom: Room }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [events, setEvents] = useState([
@@ -24,7 +25,7 @@ export function Calendar(params: { id: string }) {
     <div>
       <CreateEditEventDialog
         isModalOpen={isModalOpen}
-        id={params.id}
+        selectedRoom={params.selectedRoom}
         onClose={handleModalClose}
       />
       <FullCalendar
