@@ -1,17 +1,29 @@
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
-  MenuItem,
-  Select,
+  FormControlLabel,
   TextField,
 } from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Room } from "./page";
+import { v4 as uuidv4 } from "uuid";
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
+import dayjs, { Dayjs } from "dayjs";
+
+type Appointment = {
+  id: string;
+  room_id: string;
+  title: string;
+  start_time: string;
+  end_time: string;
+  recurring: boolean;
+  editable: boolean;
+};
 
 export function CreateEditEventDialog(params: {
   selectedRoom: Room;
@@ -20,11 +32,41 @@ export function CreateEditEventDialog(params: {
 }) {
   const { selectedRoom, isModalOpen = false, onClose } = params;
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [title, setTitle] = useState("Belegung");
+  const [date, setDate] = useState(dayjs(new Date()));
+  const [start, setStart] = useState(dayjs(new Date()));
+  const [end, setEnd] = useState(dayjs(new Date()));
+  const [recurring, setRecurring] = useState(true);
 
   const handleSave = () => {
-    // fetch(`http://localhost:8000/api/rooms/${selectedRoom.id}/occupancy`)
-    onClose();
+    const start_time = date
+      .add(start.hour(), "hour")
+      .add(start.minute(), "minute")
+      .toISOString();
+    const end_time = date
+      .add(end.hour(), "hour")
+      .add(end.minute(), "minute")
+      .toISOString();
+
+    const appointment: Appointment = {
+      id: uuidv4(),
+      room_id: selectedRoom.id,
+      title: title,
+      start_time: start_time,
+      end_time: end_time,
+      recurring: recurring,
+      editable: true,
+    };
+    console.log(appointment);
+
+    // fetch(`http://localhost:8000/api/rooms/${selectedRoom.id}/occupancy`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(appointment),
+    // });
+    // onClose();
   };
 
   return (
@@ -40,20 +82,39 @@ export function CreateEditEventDialog(params: {
               fullWidth
               variant="outlined"
               sx={{ mt: 1, mb: 1 }}
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
             />
-            <Select
-              id="event-room"
-              label="Raum"
-              value={selectedRoom.id}
-              fullWidth
-              variant="outlined"
-              disabled
+            <DatePicker
+              label="Datum"
               sx={{ mt: 1, mb: 1 }}
-            >
-              <MenuItem value={selectedRoom.id}>{selectedRoom.name}</MenuItem>
-            </Select>
-            <DateTimePicker label="Beginn" sx={{ mt: 1, mb: 1 }} />
-            <DateTimePicker label="Ende" sx={{ mt: 1 }} />
+              value={dayjs(date)}
+              onChange={(newValue) =>
+                setDate((newValue as Dayjs).startOf("date"))
+              }
+            />
+            <TimePicker
+              label="Beginn"
+              sx={{ mt: 1, mb: 1 }}
+              value={dayjs(start)}
+              onChange={(newValue) => setStart(newValue as Dayjs)}
+            />
+            <TimePicker
+              label="Ende"
+              sx={{ mt: 1 }}
+              value={dayjs(end)}
+              onChange={(newValue) => setEnd(newValue as Dayjs)}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={recurring}
+                  onChange={(event) => setRecurring(event.target.checked)}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label="Wiederholen"
+            />
           </FormControl>
         </DialogContent>
         <DialogActions>
