@@ -10,7 +10,9 @@ import {
   TextField,
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
+
 
 type CreateEditEventDialogProps = {
   id: string
@@ -18,8 +20,22 @@ type CreateEditEventDialogProps = {
   onClose: () => void;
 };
 
+
 export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
   const { id, isModalOpen = false, onClose } = props;
+
+  const [selectedRoom, setSelectedRoom] = useState("Demoroom");
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  
+  useEffect(() => {
+    axios.get("localhost:8000/api/rooms/" + id)
+      .then(response => {
+        setSelectedRoom(response.data)
+      })
+      .catch(error => {
+        console.error('Failed to fetch', error);
+      });
+  }, [])
 
   const handleSave = () => {
     //API CALL
@@ -27,8 +43,7 @@ export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
     onClose();
   };
 
-  const [selectedRoom, changeRoom] = useState("Demoroom");
-  const [selectedDate, handleDateChange] = useState(new Date());
+  
 
   return (
     <div>
@@ -47,13 +62,13 @@ export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
             <Select
               id="event-room"
               label="Raum"
-              value={selectedRoom}
+              value={selectedRoom.name}
               fullWidth
               variant="outlined"
               disabled
               sx={{ mt: 1, mb: 1 }}
             >
-              <MenuItem value={selectedRoom}>{selectedRoom}</MenuItem>
+              <MenuItem value={selectedRoom.name}>{selectedRoom.name}</MenuItem>
             </Select>
             <DateTimePicker 
               label="Beginn"
