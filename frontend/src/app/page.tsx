@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Calendar from "./calendar";
 import { CreateEditEventDialog } from "./create-edit-event-dialog";
