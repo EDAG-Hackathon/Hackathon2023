@@ -30,8 +30,9 @@ def create_appointment(appointment: Appointment) -> Appointment:
     connection, cursor = get_db_connection()
 
     cursor.execute(
-        "INSERT INTO appointments(id, title, room_id, start_time, end_time) VALUES (%s, %s, %s, %s, %s)",
-        (str(appointment.id), appointment.title, str(appointment.room_id), appointment.start_time, appointment.end_time))
+        "INSERT INTO appointments(id, title, room_id, start_time, end_time, recurring) VALUES (%s, %s, %s, %s, %s, %s)",
+        (str(appointment.id), appointment.title, str(appointment.room_id), appointment.start_time, appointment.end_time,
+         appointment.recurring))
     connection.commit()
 
     close_db_connection(connection, cursor)
