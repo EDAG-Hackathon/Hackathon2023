@@ -2,12 +2,9 @@
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import {
-    Grid,
     Avatar,
-    List,
     ListItem,
     ListItemAvatar,
-    ListItemButton,
     ListItemText,
     TextField,
     Typography
@@ -15,9 +12,11 @@ import {
 import ImageIcon from '@mui/icons-material/Image';
 import Divider from '@mui/material/Divider';
 import {FixedSizeList, ListChildComponentProps} from 'react-window';
-import {AccountCircle, SearchOutlined} from "@mui/icons-material";
+import {useState} from "react";
 
 export default function Page() {
+    const [searchQuery, setSearchQuery] = useState('');
+
     // Mocked api response
     const organisations = [
         {
@@ -31,56 +30,45 @@ export default function Page() {
             address: "Bonifatiusstraße 1"
         },
         {
-            id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-            name: "Propsteihaus Petersberg",
-            address: "Am Petersberg 1"
+            id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
+            name: "Bonifatiusschulej",
+            address: "Bonifatiusstraße 8"
         },
         {
-            id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-            name: "Propsteihaus Petersberg",
-            address: "Am Petersberg 1"
+            id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
+            name: "Heinrich-von-Bibra-Schule",
+            address: "Heinrich-von-Bibra-Platz 1"
         },
         {
-            id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-            name: "Propsteihaus Petersberg",
-            address: "Am Petersberg 1"
-        },
-        {
-            id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-            name: "Propsteihaus Petersberg",
-            address: "Am Petersberg 1"
-        },
-        {
-            id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-            name: "Propsteihaus Petersberg",
-            address: "Am Petersberg 1"
-        },
-        {
-            id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-            name: "Propsteihaus Petersberg",
-            address: "Am Petersberg 1"
-        },
-        {
-            id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-            name: "Propsteihaus Petersberg",
-            address: "Am Petersberg 1"
-        },
+            id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
+            name: "Schule am Rosenbad",
+            address: "Rosenbadstraße 1"
+        }
     ];
+
+    const filteredOrganisations = organisations.filter(org =>
+        org.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <main className="flex min-h-screen flex-col items-center">
             <Box sx={{height: "50vh", width: "100%"}}>Karte</Box>
             <Box sx={{height: "50vh", width: "100%", color: "primary.main"}}>
                 <Typography variant="h4">Organisationen</Typography>
-                <TextField id="input-with-sx" label="Search" variant="outlined" />
+                <TextField
+                    id="input-with-sx"
+                    label="Search"
+                    variant="outlined"
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
                 <FixedSizeList
-                    height={400} // Set the fixed height of the list
-                    width="100%" // Set the fixed width of the list
-                    itemSize={60} // Set the fixed height of each item
-                    itemCount={organisations.length} // Total number of items
+                    height={400}
+                    width="100%"
+                    itemSize={60}
+                    itemCount={filteredOrganisations.length}
                 >
                     {({index, style}) => (
-                        <Link href={`/organisations/${organisations[index].id}/buildings`}>
+                        <Link href={`/organisations/${filteredOrganisations[index].id}/buildings`}>
                             <ListItem style={style}>
                                 <ListItemAvatar>
                                     <Avatar>
@@ -88,8 +76,8 @@ export default function Page() {
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText
-                                    primary={organisations[index].name}
-                                    secondary={organisations[index].address}
+                                    primary={filteredOrganisations[index].name}
+                                    secondary={filteredOrganisations[index].address}
                                 />
                             </ListItem>
                             <Divider/>
