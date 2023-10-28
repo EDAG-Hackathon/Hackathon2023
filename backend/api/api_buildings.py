@@ -3,6 +3,7 @@ from uuid import UUID
 
 from chalice import Blueprint, Response
 
+from app import cors_config
 from db import building_db
 from models.models import Building
 from util.util import parse_model
@@ -10,7 +11,7 @@ from util.util import parse_model
 api = Blueprint(__name__)
 
 
-@api.route("/buildings", methods=['GET'])
+@api.route("/buildings", methods=['GET'], cors=cors_config)
 def get_all_buildings():
     buildings = building_db.get_all_buildings()
 
@@ -22,7 +23,7 @@ def get_all_buildings():
     )
 
 
-@api.route("/buildings/{building_id}", methods=['GET'])
+@api.route("/buildings/{building_id}", methods=['GET'], cors=cors_config)
 def get_building(building_id: str):
     building = building_db.get_building(UUID(building_id))
 
@@ -32,7 +33,7 @@ def get_building(building_id: str):
     )
 
 
-@api.route("/buildings", methods=['POST'])
+@api.route("/buildings", methods=['POST'], cors=cors_config)
 def create_building():
     request = api.current_request
     building: Building = parse_model(Building, request.json_body)

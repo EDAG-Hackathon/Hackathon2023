@@ -6,7 +6,6 @@
   },
   "stages": {
     "dev": {
-      "api_gateway_stage": "api",
       "environment_variables": {
         "DB_HOST": "localhost",
         "DB_PORT": "5432",

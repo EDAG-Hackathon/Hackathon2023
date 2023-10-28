@@ -3,6 +3,7 @@ from uuid import UUID
 
 from chalice import Blueprint, Response
 
+from app import cors_config
 from db import organisation_db
 from models.models import Organisation
 from util.util import parse_model
@@ -10,7 +11,7 @@ from util.util import parse_model
 api = Blueprint(__name__)
 
 
-@api.route("/organisations", methods=['GET'])
+@api.route("/organisations", methods=['GET'], cors=cors_config)
 def get_all_organisations():
     organisations = organisation_db.get_all_organisations()
 
@@ -22,7 +23,7 @@ def get_all_organisations():
     )
 
 
-@api.route("/organisations/{organisation_id}", methods=['GET'])
+@api.route("/organisations/{organisation_id}", methods=['GET'], cors=cors_config)
 def get_organisation(organisation_id: str):
     organisation = organisation_db.get_organisation(UUID(organisation_id))
 
@@ -32,7 +33,7 @@ def get_organisation(organisation_id: str):
     )
 
 
-@api.route("/organisations", methods=['POST'])
+@api.route("/organisations", methods=['POST'], cors=cors_config)
 def create_organisation():
     request = api.current_request
     organisation: Organisation = parse_model(Organisation, request.json_body)
