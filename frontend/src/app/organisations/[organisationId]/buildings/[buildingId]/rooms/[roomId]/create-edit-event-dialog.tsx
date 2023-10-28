@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   FormControl,
   MenuItem,
@@ -14,12 +13,13 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicke
 import { useState } from "react";
 
 type CreateEditEventDialogProps = {
+  id: string
   isModalOpen: boolean;
   onClose: () => void;
 };
 
 export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
-  const { isModalOpen = false, onClose } = props;
+  const { id, isModalOpen = false, onClose } = props;
 
   const handleSave = () => {
     //API CALL

@@ -4,7 +4,13 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { CreateEditEventDialog } from "./create-edit-event-dialog";
 
-export function Calendar() {
+type CalendarProps = {
+  id: string
+}
+
+export function Calendar(props: CalendarProps) {
+  const {id} = props
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [events, setEvents] = useState([
@@ -24,6 +30,7 @@ export function Calendar() {
     <div>
       <CreateEditEventDialog
         isModalOpen={isModalOpen}
+        id={id}
         onClose={handleModalClose}
       />
       <FullCalendar
