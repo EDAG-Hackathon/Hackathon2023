@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
@@ -36,3 +37,12 @@ class Room(BaseModel):
     room_temp_occupied: Optional[float]
     room_temp_unoccupied: Optional[float]
     room_humidity: Optional[float]
+
+
+class Appointment(BaseModel):
+    id: UUID
+    room_id: UUID
+    title: str
+    start_time: datetime
+    end_time: datetime
+    editable: bool = False

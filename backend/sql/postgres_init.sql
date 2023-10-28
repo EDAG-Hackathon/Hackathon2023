@@ -52,9 +52,10 @@ CREATE TABLE IF NOT EXISTS sensors (
     room_id UUID REFERENCES rooms(id)
 );
 
-CREATE TABLE IF NOT EXISTS schedule (
+CREATE TABLE IF NOT EXISTS appointments (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     room_id UUID REFERENCES rooms(id),
+    title VARCHAR(255),
     start_time TIMESTAMP,
     end_time TIMESTAMP
 );
