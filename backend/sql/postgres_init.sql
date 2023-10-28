@@ -4,7 +4,8 @@ CREATE DATABASE dashboard;
 
 CREATE TABLE IF NOT EXISTS organizations (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    name VARCHAR(255),
+    name VARCHAR(255) NOT NULL,
+    image VARCHAR(255),
     coordinates json NOT NULL
 );
 

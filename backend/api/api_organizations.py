@@ -1,10 +1,8 @@
-import json
 from http import HTTPStatus
 from uuid import UUID
 
 from chalice import Blueprint, Response
 
-from api.Responses import NoContentResponse
 from db import organization_db
 from models.models import Organization
 from util.util import parse_model
@@ -14,7 +12,14 @@ api = Blueprint(__name__)
 
 @api.route("/organizations", methods=['GET'])
 def get_all_organizations():
-    return {"org": "units"}
+    organizations = organization_db.get_all_organizations()
+
+    body = [organization.model_dump(mode='json') for organization in organizations]
+
+    return Response(
+        status_code=HTTPStatus.OK,
+        body=body
+    )
 
 
 @api.route("/organizations/{organization_id}", methods=['GET'])
@@ -23,7 +28,7 @@ def get_organization(organization_id: str):
 
     return Response(
         status_code=HTTPStatus.OK,
-        body=json.dumps(organization)
+        body=organization.model_dump_json()
     )
 
 

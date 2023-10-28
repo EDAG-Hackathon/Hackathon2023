@@ -1,3 +1,4 @@
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -11,4 +12,5 @@ class Coordinates(BaseModel):
 class Organization(BaseModel):
     id: UUID
     name: str
+    image: Optional[str] = None
     coordinates: Coordinates
