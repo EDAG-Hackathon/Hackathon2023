@@ -19,12 +19,14 @@
     "@fullcalendar/timegrid": "^6.1.9",
     "@mui/material": "^5.14.15",
     "@mui/x-date-pickers": "^6.17.0",
+    "@types/uuid": "^9.0.6",
     "axios": "^1.6.0",
     "dayjs": "^1.11.10",
     "next": "14.0.0",
     "next-transpile-modules": "^10.0.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "typescript": "^5",
