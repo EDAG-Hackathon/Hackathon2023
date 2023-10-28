@@ -4,55 +4,20 @@ import Link from "next/link";
 
 import Map from "@/components/map";
 
-export default function Page() {
-  // Mocked api response
-  const organisations = [
-    {
-      id: "43459e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Hochschule Fulda",
-      address: "Leipziger Str. 124",
-    },
-    {
-      id: "53659e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Testschule",
-      address: "Bonifatiusstraße 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Propsteihaus Petersberg",
-      address: "Am Petersberg 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Propsteihaus Petersberg",
-      address: "Am Petersberg 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Propsteihaus Petersberg",
-      address: "Am Petersberg 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Propsteihaus Petersberg",
-      address: "Am Petersberg 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Propsteihaus Petersberg",
-      address: "Am Petersberg 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Propsteihaus Petersberg",
-      address: "Am Petersberg 1",
-    },
-    {
-      id: "63759e1e-7d12-4e70-9d8d-5bf7eee890bd",
-      name: "Propsteihaus Petersberg",
-      address: "Am Petersberg 1",
-    },
-  ];
+type Organisation = {
+  id: string;
+  name: string;
+  image?: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  address: string;
+};
+
+export default async function Page() {
+  const response = await fetch("http://localhost:8000/organizations");
+  const organisations = (await response.json()) as Organisation[];
 
   return (
     <main className="flex min-h-screen flex-col items-center">
