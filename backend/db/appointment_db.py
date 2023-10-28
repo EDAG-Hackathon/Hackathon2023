@@ -39,10 +39,10 @@ def create_appointment(appointment: Appointment) -> Appointment:
     return appointment
 
 
-def get_appointments_of_organisation(organisation_id: UUID) -> list[Appointment]:
+def get_appointments_of_room(room_id: UUID) -> list[Appointment]:
     connection, cursor = get_db_connection()
 
-    cursor.execute("SELECT * FROM appointments WHERE organisation_id=%s;", [str(organisation_id)])
+    cursor.execute("SELECT * FROM appointments WHERE room_id=%s;", [str(room_id)])
     values = cursor.fetchall()
 
     close_db_connection(connection, cursor)
