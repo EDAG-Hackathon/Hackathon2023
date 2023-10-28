@@ -32,42 +32,9 @@ export function Calendar(params: { selectedRoom: Room }) {
   }
 
   const { data, error, isLoading } = useFetch<Appointment[]>(
-    `http://localhost:8000/api/appointments?roomId=${params.selectedRoom.id}`
+    `http://localhost:8000/api/appointments?room_id=${params.selectedRoom.id}`
   );
-  const appointments = data || [
-    {
-      id: "1",
-      title: "Test",
-      start: new Date("2023-10-27T10:00:00"),
-      end: new Date("2023-10-27T12:00:00"),
-      editable: false,
-      extendedProps: { temperature: 20, ventilation: true },
-    },
-    {
-      id: "2",
-      title: "Test2",
-      start: new Date("2023-10-28T14:00:00"),
-      end: new Date("2023-10-28T15:00:00"),
-      editable: false,
-      extendedProps: { temperature: 18, ventilation: false },
-    },
-    {
-      id: "3",
-      title: "Test3",
-      start: new Date("2023-10-29T16:00:00"),
-      end: new Date("2023-10-29T18:00:00"),
-      editable: false,
-      extendedProps: { temperature: 20, ventilation: true },
-    },
-    {
-      id: "4",
-      title: "Test4",
-      start: new Date("2023-10-30T09:00:00"),
-      end: new Date("2023-10-30T10:00:00"),
-      editable: false,
-      extendedProps: { temperature: 20, ventilation: false },
-    },
-  ];
+  const appointments = data || [];
 
   return (
     <div>
