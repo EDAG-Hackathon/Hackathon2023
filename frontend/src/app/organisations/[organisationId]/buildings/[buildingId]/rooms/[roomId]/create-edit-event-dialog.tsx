@@ -14,6 +14,7 @@ import { Room } from "./page";
 import { v4 as uuidv4 } from "uuid";
 import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
+import { start } from "repl";
 
 type Appointment = {
   id: string;
@@ -34,39 +35,43 @@ export function CreateEditEventDialog(params: {
 
   const [title, setTitle] = useState("Belegung");
   const [date, setDate] = useState(dayjs(new Date()));
-  const [start, setStart] = useState(dayjs(new Date()));
-  const [end, setEnd] = useState(dayjs(new Date()));
+  const [startTime, setStartTime] = useState(dayjs(new Date()));
+  const [endTime, setEndTime] = useState(dayjs(new Date()));
   const [recurring, setRecurring] = useState(true);
 
   const handleSave = () => {
-    const start_time = date
-      .add(start.hour(), "hour")
-      .add(start.minute(), "minute")
-      .toISOString();
-    const end_time = date
-      .add(end.hour(), "hour")
-      .add(end.minute(), "minute")
-      .toISOString();
+    const localOffsetHours = date.toDate().getTimezoneOffset() / 60;
+
+    const startDateTime = date
+      .set("hour", startTime.hour() - localOffsetHours)
+      .set("minute", startTime.minute())
+      .set("second", 0)
+      .set("millisecond", 0);
+    const endDateTime = date
+      .set("hour", endTime.hour() - localOffsetHours)
+      .set("minute", endTime.minute())
+      .set("second", 0)
+      .set("millisecond", 0);
 
     const appointment: Appointment = {
       id: uuidv4(),
       room_id: selectedRoom.id,
       title: title,
-      start_time: start_time,
-      end_time: end_time,
+      start_time: startDateTime.toISOString(),
+      end_time: endDateTime.toISOString(),
       recurring: recurring,
       editable: true,
     };
-    console.log(appointment);
+    console.log(JSON.stringify(appointment));
 
-    // fetch(`http://localhost:8000/api/rooms/${selectedRoom.id}/occupancy`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(appointment),
-    // });
-    // onClose();
+    fetch("http://localhost:8000/api/appointments", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(appointment),
+    });
+    onClose();
   };
 
   return (
@@ -89,21 +94,19 @@ export function CreateEditEventDialog(params: {
               label="Datum"
               sx={{ mt: 1, mb: 1 }}
               value={dayjs(date)}
-              onChange={(newValue) =>
-                setDate((newValue as Dayjs).startOf("date"))
-              }
+              onChange={(newValue) => setDate(newValue as Dayjs)}
             />
             <TimePicker
               label="Beginn"
               sx={{ mt: 1, mb: 1 }}
-              value={dayjs(start)}
-              onChange={(newValue) => setStart(newValue as Dayjs)}
+              value={dayjs(startTime)}
+              onChange={(newValue) => setStartTime(newValue as Dayjs)}
             />
             <TimePicker
               label="Ende"
               sx={{ mt: 1 }}
-              value={dayjs(end)}
-              onChange={(newValue) => setEnd(newValue as Dayjs)}
+              value={dayjs(endTime)}
+              onChange={(newValue) => setEndTime(newValue as Dayjs)}
             />
             <FormControlLabel
               control={
