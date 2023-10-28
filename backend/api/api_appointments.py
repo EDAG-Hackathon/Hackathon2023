@@ -2,6 +2,7 @@ from http import HTTPStatus
 from uuid import UUID
 
 from chalice import Blueprint, Response, BadRequestError
+from pydantic_core import ValidationError
 
 from api.constants import cors_config
 from db import appointment_db
@@ -46,7 +47,10 @@ def get_appointment(appointment_id: str):
 @api.route("/appointments", methods=['POST'], cors=cors_config)
 def create_appointment():
     request = api.current_request
-    appointment: Appointment = parse_model(Appointment, request.json_body)
+    try:
+        appointment: Appointment = parse_model(Appointment, request.json_body)
+    except ValidationError as e:
+        raise BadRequestError(str(e))
 
     appointment_db.create_appointment(appointment)
 
