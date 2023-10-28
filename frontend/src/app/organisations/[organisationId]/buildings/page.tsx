@@ -75,11 +75,6 @@ export default function Page() {
             {filteredBuildings.map((building) => (
               <Link key={building.id} href={`${pathname}/${building.id}/rooms`}>
                 <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ImageIcon/>
-                    </Avatar>
-                  </ListItemAvatar>
                   <ListItemText
                     primary={building.name}
                     secondary={building.address}
