@@ -2,6 +2,7 @@
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import {
+  Card,
   Avatar,
   List,
   ListItem,
@@ -40,50 +41,61 @@ export default function Page() {
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <Box sx={{height: "50vh", width: "100%"}}>
+      <Box sx={{height: "100vh", width: "100%", position: "relative"}}>
         <Map/>
-      </Box>
-      <Box
-        sx={{
-          height: "50vh",
-          maxHeight: "50vh",
-          width: "100%",
-          color: "primary.main",
-          overflow: "scroll",
-          marginLeft: "1rem",
-        }}
-      >
-        <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
-          <Box sx={{marginBottom: "1rem"}}>
-            <Typography variant="h4">Organisationen</Typography>
-          </Box>
-          <TextField
-            id="input-with-sx"
-            label="Search"
-            variant="outlined"
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+        <Box
+          sx={{
+            padding: "1rem",
+            backgroundColor: "white",
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+            height: "45vh",
+            maxHeight: "50vh",
+            width: "400px",
+            color: "primary.main",
+            overflow: "scroll",
+            marginLeft: "1rem",
+          }}
+        >
+          <Card>
+            <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
+              <Box sx={{marginBottom: "1rem", textAlign: "center"}}>
+                <Typography variant="h4">Organisationen</Typography>
+              </Box>
+              <TextField
+                id="input-with-sx"
+                label="Search"
+                variant="outlined"
+                sx={{
+                  marginLeft: "1rem",
+                  marginRight: "1rem",
+                  width: "calc(100% - 2rem)",
+                }}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </Box>
+            <List>
+              {filteredOrganisations.map((organisation) => (
+                <Link
+                  key={organisation.id}
+                  href={`organisations/${organisation.id}/buildings`}
+                >
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar src={organisation.image}></Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={organisation.name}
+                      secondary={organisation.address}
+                    />
+                  </ListItem>
+                  <Divider/>
+                </Link>
+              ))}
+            </List>
+          </Card>
         </Box>
-        <List>
-          {filteredOrganisations.map((organisation) => (
-            <Link
-              key={organisation.id}
-              href={`organisations/${organisation.id}/buildings`}
-            >
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar src={organisation.image} >
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={organisation.name}
-                  secondary={organisation.address}
-                />
-              </ListItem>
-              <Divider/>
-            </Link>
-          ))}
-        </List>
       </Box>
     </main>
   );
