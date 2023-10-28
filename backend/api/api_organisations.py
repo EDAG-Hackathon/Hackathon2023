@@ -3,7 +3,7 @@ from uuid import UUID
 
 from chalice import Blueprint, Response
 
-from app import cors_config
+from api.constants import cors_config
 from db import organisation_db
 from models.models import Organisation
 from util.util import parse_model

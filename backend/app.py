@@ -1,14 +1,10 @@
 import psycopg2.extras
-from chalice import Chalice, CORSConfig
-from api.api_organisations import api as api_organisations
+from chalice import Chalice
+
 from api.api_buildings import api as api_buildings
+from api.api_organisations import api as api_organisations
 
 app = Chalice("dashboard-backend")
-
-
-cors_config = CORSConfig(
-    allow_origin='*',
-)
 
 
 @app.route("/")
