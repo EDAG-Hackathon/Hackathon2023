@@ -42,6 +42,7 @@ export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
               type="text"
               fullWidth
               variant="outlined"
+              sx={{ mb: 2 }}
             />
             <Select
               id="event-room"
@@ -49,15 +50,17 @@ export function CreateEditEventDialog(props: CreateEditEventDialogProps) {
               value={selectedRoom}
               fullWidth
               variant="outlined"
+              disabled
+              sx={{ mb: 2 }}
             >
               <MenuItem value={selectedRoom}>{selectedRoom}</MenuItem>
             </Select>
-            <DateTimePicker label="Beginn" />
+            <DateTimePicker label="Beginn" sx={{ mb: 2 }} />
             <DateTimePicker label="Ende" />
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleSave}>
+          <Button variant="outlined" onClick={handleSave} sx={{ m: 2 }}>
             Speichern
           </Button>
         </DialogActions>
