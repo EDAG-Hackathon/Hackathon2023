@@ -16,7 +16,7 @@ Hackathon Repository of the EDAG Mobility IT Team.
 Start the database by running ```docker-compose up``` in the root folder of the project. The ```docker-compose.yml``` takes care of setting up a basic database for you.
 
 ### Backend
-Run ```poetry install``` in the sub-folder of the backend. Then you can start the server by executing ```python app.py```.
+Run ```poetry install``` in the sub-folder of the backend. Then you can start the server by executing ```poetry run chalice local --stage dev```.
 The server will accept requests on ```http://localhost:8000```.
 
 ### Frontend

@@ -1,6 +1,10 @@
 from http import HTTPStatus
 
-from chalice import Response
+from chalice import Response, CORSConfig
+
+cors_config = CORSConfig(
+    allow_origin='*',
+)
 
 
 class NoContentResponse(Response):
