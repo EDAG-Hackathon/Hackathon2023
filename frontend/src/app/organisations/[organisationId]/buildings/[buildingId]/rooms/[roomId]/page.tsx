@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import { Calendar } from "./calendar";
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
+import { EventLog } from "./event-log/event-log";
 
 export type Room = {
   id: string;
@@ -24,11 +26,18 @@ export default function Page({ params }: { params: { roomId: string } }) {
   }, []);
 
   return (
-    <Box sx={{ height: "100%", width: "100%", p: "7px" }}>
-      <Typography variant="h4" pb={"5px"}>
+    <Box sx={{ height: "100%", width: "100%", p: 5 }}>
+      <Typography variant="h4" sx={{ pb: 5 }}>
         Informationen über Raum: {selectedRoom.name}
       </Typography>
-      <Calendar selectedRoom={selectedRoom} />
+      <Grid container spacing={10}>
+        <Grid item xs={8}>
+          <Calendar selectedRoom={selectedRoom} />
+        </Grid>
+        <Grid item xs={4}>
+          <EventLog />
+        </Grid>
+      </Grid>
     </Box>
   );
 }
