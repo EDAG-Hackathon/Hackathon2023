@@ -1,0 +1,389 @@
+openapi: 3.0.0
+info:
+  title: ZEUS Dashboard API
+  description: Smart Building API
+  version: 0.1.0
+
+servers:
+  - url: /
+    description: localhost
+
+tags:
+  - name: organisations
+    description: organisations, grouping buildings
+  - name: buildings
+    description: buildings of a organisations
+  - name: rooms
+    description: rooms that are controllable
+  - name: appointments
+    description: appointments of rooms
+
+paths:
+  /:
+    get:
+      summary: health check
+      responses:
+        200:
+          description: static response
+          content:
+            text/json:
+              schema:
+                type: string
+
+  /api/organisations:
+    get:
+      tags:
+        - organisations
+      summary: get organisations
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organisation'
+
+        '404':
+          description: not available
+    post:
+      tags:
+        - organisations
+      summary: create organisation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organisation'
+
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Organisation'
+        '400':
+          description: invalid payload
+
+  /organisations/{id}:
+    get:
+      tags:
+        - organisations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      summary: get organisation by id
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Organisation'
+
+  /api/buildings:
+    get:
+      tags:
+        - buildings
+      summary: get buildings
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Building'
+
+        '404':
+          description: not available
+    post:
+      tags:
+        - buildings
+      summary: create building
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Building'
+
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Building'
+        '400':
+          description: invalid payload
+
+  /buildings/{id}:
+    get:
+      tags:
+        - buildings
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      summary: get building by id
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Building'
+
+  /api/rooms:
+    get:
+      tags:
+        - rooms
+      summary: get rooms
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+
+        '404':
+          description: not available
+    post:
+      tags:
+        - rooms
+      summary: create room
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Room'
+        '400':
+          description: invalid payload
+
+  /rooms/{id}:
+    get:
+      tags:
+        - rooms
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      summary: get room by id
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Room'
+
+  /api/appointments:
+    get:
+      tags:
+        - appointments
+      summary: get appointments
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+
+        '404':
+          description: not available
+    post:
+      tags:
+        - appointments
+      summary: create appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          description: invalid payload
+
+  /appointments/{id}:
+    get:
+      tags:
+        - appointments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      summary: get room by id
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Appointment'
+
+components:
+  schemas:
+    Organisation:
+      type: object
+      required:
+        - id
+        - name
+        - coordinates
+        - address
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        image:
+          type: string
+          format: uri
+        address:
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+
+    Building:
+      type: object
+      required:
+        - id
+        - organisation_id
+        - name
+        - coordinates
+        - address
+        - room_temp_occupied
+        - room_temp_unoccupied
+        - room_temp_humidity
+      properties:
+        id:
+          type: string
+          format: uuid
+        organisation_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        address:
+          type: string
+        room_temp_occupied:
+          type: number
+        room_temp_unoccupied:
+          type: number
+        room_temp_humidity:
+          type: number
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+
+    Coordinates:
+      type: object
+      required:
+        - lat
+        - lng
+      properties:
+        lat:
+          type: number
+        lng:
+          type: number
+
+    Room:
+      type: object
+      required:
+        - id
+        - building_id
+        - name
+        - number
+      properties:
+        id:
+          type: string
+          format: uuid
+        building_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        number:
+          type: string
+        room_temp_occupied:
+          type: number
+        room_temp_unoccupied:
+          type: number
+        room_temp_humidity:
+          type: number
+
+    Appointment:
+      type: object
+      required:
+        - id
+        - room_id
+        - title
+        - start_time
+        - end_time
+        - recurring
+      properties:
+        id:
+          type: string
+          format: uuid
+        room_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        recurring:
+          type: boolean
+          default: false
