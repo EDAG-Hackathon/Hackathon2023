@@ -68,5 +68,5 @@ CREATE TABLE IF NOT EXISTS events (
     type event_type NOT NULL,
     action VARCHAR(255) NOT NULL,
     trigger VARCHAR(255),
-    timestamp TIMESTAMP NOT NULL,
+    timestamp TIMESTAMP NOT NULL
 );

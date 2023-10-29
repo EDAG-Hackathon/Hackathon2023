@@ -60,7 +60,7 @@ class EventType(Enum):
     AIR_QUALITY = 'airquality'
 
 
-class EventLogItem(BaseModel):
+class Event(BaseModel):
     id: UUID
     type: EventType
     action: str

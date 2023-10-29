@@ -17,6 +17,8 @@ tags:
     description: rooms that are controllable
   - name: appointments
     description: appointments of rooms
+  - name: events
+    description: all smart data events
 
 paths:
   /:
@@ -44,9 +46,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Organisation'
-
-        '404':
-          description: not available
     post:
       tags:
         - organisations
@@ -104,9 +103,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Building'
-
-        '404':
-          description: not available
     post:
       tags:
         - buildings
@@ -164,9 +160,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Room'
-
-        '404':
-          description: not available
     post:
       tags:
         - rooms
@@ -224,9 +217,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Appointment'
-
-        '404':
-          description: not available
     post:
       tags:
         - appointments
@@ -269,6 +259,21 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/Appointment'
+
+  /api/events:
+    get:
+      tags:
+        - events
+      summary: get all events
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
 
 components:
   schemas:
@@ -387,3 +392,36 @@ components:
         recurring:
           type: boolean
           default: false
+
+    EventType:
+      type: string
+      enum:
+        - TEMPERATURE
+        - FORECAST
+        - SUN
+        - RAIN
+        - DAYLIGHT
+        - OCCUPANCY
+        - AIR_QUALITY
+
+    Event:
+      type: object
+      required:
+        - id
+        - type
+        - action
+        - trigger
+        - timestamp
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          $ref: '#/components/schemas/EventType'
+        action:
+          type: string
+        trigger:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
