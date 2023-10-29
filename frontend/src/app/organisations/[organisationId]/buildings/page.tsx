@@ -1,11 +1,11 @@
 "use client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import Map from "@/components/map";
-import {useState} from "react";
-import {useFetch} from "@/hooks/use-fetch";
+import { useState } from "react";
+import { useFetch } from "@/hooks/use-fetch";
 import {
   Avatar,
   List,
@@ -36,7 +36,7 @@ export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
   const pathname = usePathname();
   const organisation_id = pathname.split("/")[2];
-  const {data,error, isLoading} = useFetch<Building[]>(
+  const { data, error, isLoading } = useFetch<Building[]>(
     `http://localhost:8000/api/buildings?organisation_id=${organisation_id}`
   );
   const buildings = data || [];
@@ -46,10 +46,10 @@ export default function Page() {
 
   return (
     <>
-      <Box sx={{height: "50vh", width: "100%"}}>
-        <Map/>
+      <Box sx={{ height: "50vh", width: "100%" }}>
+        <Map />
       </Box>
-      <Box sx={{height: "50vh", width: "100%"}}>
+      <Box sx={{ height: "50vh", width: "100%" }}>
         <Box
           sx={{
             height: "50vh",
@@ -60,8 +60,8 @@ export default function Page() {
             marginLeft: "1rem",
           }}
         >
-          <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
-            <Box sx={{marginBottom: "1rem"}}>
+          <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
+            <Box sx={{ marginBottom: "1rem" }}>
               <Typography variant="h4">Gebäude</Typography>
             </Box>
             <TextField
@@ -73,14 +73,18 @@ export default function Page() {
           </Box>
           <List>
             {filteredBuildings.map((building) => (
-              <Link key={building.id} href={`${pathname}/${building.id}/rooms`}>
+              <Link
+                key={building.id}
+                href={`${pathname}/${building.id}/rooms`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
                 <ListItem>
                   <ListItemText
                     primary={building.name}
                     secondary={building.address}
                   />
                 </ListItem>
-                <Divider/>
+                <Divider />
               </Link>
             ))}
           </List>
