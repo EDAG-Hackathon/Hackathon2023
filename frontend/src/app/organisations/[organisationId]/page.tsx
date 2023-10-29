@@ -1,11 +1,10 @@
 "use client";
-import {Box, Card, Divider, Link} from "@mui/material";
+import { Box, Card, Divider, Link } from "@mui/material";
 import Map from "@/components/map";
-import {useEffect, useState} from "react";
-import {useFetch} from "@/hooks/use-fetch";
-import {usePathname} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useFetch } from "@/hooks/use-fetch";
+import { usePathname } from "next/navigation";
 import {
-  Avatar,
   List,
   ListItem,
   ListItemAvatar,
@@ -31,14 +30,14 @@ export type Building = {
 };
 
 export default function Page({
-                               params,
-                             }: {
+  params,
+}: {
   params: { organisationId: string };
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const pathname = usePathname();
   const organisation_id = pathname.split("/")[2];
-  const {data, error, isLoading} = useFetch<Building[]>(
+  const { data, error, isLoading } = useFetch<Building[]>(
     `http://localhost:8000/api/buildings?organisation_id=${organisation_id}`
   );
   const buildings = data || [];
@@ -49,8 +48,10 @@ export default function Page({
   return (
     <div>
       <Box height="100vh" width="100%">
-        <Map markers={filteredBuildings.map((building) => (
-          <BuildingMarker building={building}/>))}
+        <Map
+          markers={filteredBuildings.map((building) => (
+            <BuildingMarker building={building} />
+          ))}
         />
         <Card
           sx={{
@@ -65,9 +66,9 @@ export default function Page({
             marginBottom: "1rem",
           }}
         >
-          <Box sx={{position: "sticky", top: 0, zIndex: 1}}>
-            <Box sx={{marginBottom: "1rem", textAlign: "center", color: "primary.main"}}>
-              <Typography variant="h5">Gebäude</Typography>
+          <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+            <Box sx={{ marginBottom: "1rem", textAlign: "center" }}>
+              <Typography variant="h4">Gebäude</Typography>
             </Box>
             <TextField
               id="input-with-sx"
@@ -87,7 +88,7 @@ export default function Page({
               <Link
                 key={building.id}
                 href={`${pathname}/buildings/${building.id}`}
-                style={{textDecoration: "none", color: "inherit"}}
+                style={{ textDecoration: "none", color: "inherit" }}
               >
                 <ListItem>
                   <ListItemText
@@ -95,7 +96,7 @@ export default function Page({
                     secondary={building.address}
                   />
                 </ListItem>
-                <Divider/>
+                <Divider />
               </Link>
             ))}
           </List>

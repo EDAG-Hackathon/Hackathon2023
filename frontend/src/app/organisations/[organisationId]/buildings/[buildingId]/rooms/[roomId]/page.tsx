@@ -34,6 +34,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
         marginRight: "5rem",
         marginLeft: "1rem",
         color: "primary.main",
+        p: 5,
       }}
     >
       <Typography variant="h4">
