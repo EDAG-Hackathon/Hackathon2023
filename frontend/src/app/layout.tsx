@@ -7,18 +7,21 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import HouseIcon from "@mui/icons-material/House";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "dayjs/locale/de";
 
 import "mapbox-gl/dist/mapbox-gl.css";
+import { useFetch } from "@/hooks/use-fetch";
+import { Organisation } from "./organisations/page";
+import { useState } from "react";
+import { Avatar, Collapse, ListItemAvatar } from "@mui/material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,11 +32,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { data, error, isLoading } = useFetch<Organisation[]>(
+    "http://localhost:8000/api/organisations"
+  );
+  const organisations = data || [];
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
       <html lang="de">
         <body className={inter.className} style={{ margin: 0 }}>
-          <Box sx={{ width: "100%", height: "100vh", position: "relative", overflow: "hidden"}}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "100vh",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
             <CssBaseline />
             <AppBar
               position="fixed"
@@ -62,18 +83,39 @@ export default function RootLayout({
               <Toolbar />
               <Box sx={{ overflow: "auto" }}>
                 <List>
-                  {["Lorem", "Ipsum", "Dolor sit", "Amet"].map(
-                    (text, index) => (
-                      <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                          <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                          </ListItemIcon>
-                          <ListItemText primary={text} />
-                        </ListItemButton>
-                      </ListItem>
-                    )
-                  )}
+                  {organisations.map((organisation) => (
+                    <>
+                      <ListItemButton onClick={handleClick}>
+                        <ListItemAvatar>
+                          <Avatar src={organisation.image}></Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={organisation.name} />
+                        {open ? <ExpandLess /> : <ExpandMore />}
+                      </ListItemButton>
+                      <Collapse in={open} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                          <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemIcon>
+                              <HouseIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Gebäude 1" />
+                          </ListItemButton>
+                          <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemIcon>
+                              <HouseIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Gebäude 2" />
+                          </ListItemButton>
+                          <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemIcon>
+                              <HouseIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Gebäude 3" />
+                          </ListItemButton>
+                        </List>
+                      </Collapse>
+                    </>
+                  ))}
                 </List>
               </Box>
             </Drawer>
