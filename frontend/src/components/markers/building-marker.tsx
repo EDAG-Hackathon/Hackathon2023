@@ -9,6 +9,7 @@ import ReactECharts from "echarts-for-react";
 import {useState} from "react";
 import Link from "next/link";
 import {Building} from "@/app/buildings/[buildingId]/page";
+import Box from "@mui/material/Box";
 
 export default function BuildingMarker({
                                          building,
@@ -67,9 +68,9 @@ export default function BuildingMarker({
           }
         },
         axisLabel: {
-          distance: -20,
+          distance: -5,
           color: '#999',
-          fontSize: 20
+          fontSize: 15
         },
         anchor: {
           show: false
@@ -79,7 +80,7 @@ export default function BuildingMarker({
         },
         detail: {
           valueAnimation: true,
-          width: '100%',
+          width: '70%',
           lineHeight: 40,
           borderRadius: 8,
           offsetCenter: [0, '-15%'],
@@ -169,7 +170,7 @@ export default function BuildingMarker({
                 <Typography gutterBottom variant="h5" component="div">
                   {building.name}
                 </Typography>
-                <ReactECharts option={chartOption}/>
+                  <ReactECharts option={chartOption}/>
               </CardContent>
             </CardActionArea>
             <CardActions>

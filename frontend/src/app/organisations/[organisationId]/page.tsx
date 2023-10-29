@@ -64,6 +64,7 @@ export default function Page({
             width: "400px",
             overflow: "scroll",
             marginBottom: "1rem",
+            color: "primary.main"
           }}
         >
           <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
