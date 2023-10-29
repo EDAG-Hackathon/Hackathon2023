@@ -27,7 +27,7 @@ export function RoomsList() {
 
   return (
     <>
-      <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+      <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "#FAFAFA" }}>
         <Box sx={{ marginBottom: "1rem" }}>
           <Typography variant="h5">Raumliste</Typography>
         </Box>
@@ -40,10 +40,11 @@ export function RoomsList() {
             width: "calc(100% - 2rem)",
           }}
           variant="outlined"
+          focused={true}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </Box>
-      <Box sx={{ overflow: "scroll" }}>
+      <Box sx={{ overflow: "scroll", marginTop: "1rem"}}>
         <List>
           {filteredRooms.map((room) => (
             <Link
