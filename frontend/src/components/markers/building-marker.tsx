@@ -8,10 +8,16 @@ import PlaceIcon from "@mui/icons-material/Place";
 import ReactECharts from "echarts-for-react";
 import { useState } from "react";
 import Link from "next/link";
-import { Building } from "@/app/buildings/[buildingId]/page";
 import Box from "@mui/material/Box";
+import { Building } from "@/app/organisations/[organisationId]/page";
 
-export default function BuildingMarker({ building }: { building: Building }) {
+export default function BuildingMarker({
+  building,
+  basePath,
+}: {
+  building: Building;
+  basePath: string;
+}) {
   const [open, setOpen] = useState(false);
 
   const chartOption = {
@@ -170,7 +176,7 @@ export default function BuildingMarker({ building }: { building: Building }) {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Link href={`/buildings/${building.id}`}>
+              <Link href={`${basePath}/buildings/${building.id}`}>
                 <Button size="small" color="primary">
                   Räume anzeigen
                 </Button>
