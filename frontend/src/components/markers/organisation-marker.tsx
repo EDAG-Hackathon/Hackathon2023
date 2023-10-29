@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
-
+import ReactECharts from "echarts-for-react";
 import { Organisation } from "@/app/organisations/page";
 import { useState } from "react";
 import Link from "next/link";
@@ -16,6 +16,27 @@ export default function OrganisationMarker({
   organisation: Organisation;
 }) {
   const [open, setOpen] = useState(false);
+
+  const chartOption = {
+    grid: { top: 8, right: 8, bottom: 24, left: 36 },
+    xAxis: {
+      type: "category",
+      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    },
+    yAxis: {
+      type: "value",
+    },
+    series: [
+      {
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: "line",
+        smooth: true,
+      },
+    ],
+    tooltip: {
+      trigger: "axis",
+    },
+  };
 
   return (
     <Marker
@@ -46,10 +67,7 @@ export default function OrganisationMarker({
                 <Typography gutterBottom variant="h5" component="div">
                   {organisation.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
+                <ReactECharts option={chartOption} />
               </CardContent>
             </CardActionArea>
             <CardActions>
