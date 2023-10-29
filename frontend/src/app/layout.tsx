@@ -33,7 +33,7 @@ export default function RootLayout({
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
       <html lang="de">
         <body className={inter.className} style={{ margin: 0 }}>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ width: "100%", height: "100vh", position: "relative", overflow: "hidden"}}>
             <CssBaseline />
             <AppBar
               position="fixed"
