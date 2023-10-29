@@ -267,10 +267,10 @@ def _create_event_mocks():
                     _create_event(event_type, "Heizen auf 22 Grad Celsius", "Raum belegt")
 
 
-def _create_event(type: EventType, action: str, trigger: str):
+def _create_event(event_type: EventType, action: str, trigger: str):
     event = Event(
         id=uuid.uuid4(),
-        type=type,
+        type=event_type,
         action=action,
         trigger=trigger,
         timestamp=datetime.now()
