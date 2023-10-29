@@ -1,3 +1,7 @@
+from uuid import UUID
+
+from chalice import NotFoundError
+
 from models.models import Event
 from util.util import get_db_connection, close_db_connection, parse_model_list
 
@@ -23,3 +27,14 @@ def create_event(event: Event) -> Event:
     close_db_connection(connection, cursor)
 
     return event
+
+
+def get_all_events_for_room(room_id: UUID) -> list[Event]:
+    connection, cursor = get_db_connection()
+
+    cursor.execute("SELECT * FROM events WHERE room_id=%s", [str(room_id)])
+    values = cursor.fetchall()
+
+    close_db_connection(connection, cursor)
+
+    return parse_model_list(Event, values)
