@@ -62,6 +62,7 @@ class EventType(Enum):
 
 class Event(BaseModel):
     id: UUID
+    room_id: UUID
     type: EventType
     action: str
     trigger: str

@@ -95,8 +95,13 @@ def generate_mock_data():
     ]
 
     if organisation_db.organisations_exists() is not True:
+        print("Starting creating mock data. This process may take up to a minute. Please be patient...")
+
         for count in range(0, 3):
             organisation = organisations[count]
+
+            print(f"Creating mock data for organisation: {organisation['name']}")
+
             new_organisation = Organisation(
                 id=uuid.uuid4(),
                 address=organisation['address'],
@@ -140,7 +145,7 @@ def generate_mock_data():
 
                     _create_rooms(new_building.id)
 
-    _create_event_mocks()
+        print("Creating mock data finished successfully.")
 
 
 def _create_rooms(building_id: uuid.UUID):
@@ -246,30 +251,32 @@ def _create_rooms(building_id: uuid.UUID):
                     )
                     appointment_db.create_appointment(appointment)
 
-
-def _create_event_mocks():
-    for count in range(1, 5):
-        for event_type in EventType:
-            match event_type:
-                case EventType.TEMPERATURE:
-                    _create_event(event_type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
-                case EventType.SUN:
-                    _create_event(event_type, "Jalousie geschlossen", "Starke Sonneneinstrahlung")
-                case EventType.RAIN:
-                    _create_event(event_type, "Dachfenster geschlossen", "Angrenzende Gebäude melden Regen")
-                case EventType.AIR_QUALITY:
-                    _create_event(event_type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
-                case EventType.DAYLIGHT:
-                    _create_event(event_type, "Beleuchtung eingeschaltet", "Sonnenuntergang")
-                case EventType.FORECAST:
-                    _create_event(event_type, "Dachfenster geschlossen", "Wettervorhersage meldet Regen")
-                case EventType.OCCUPANCY:
-                    _create_event(event_type, "Heizen auf 22 Grad Celsius", "Raum belegt")
+        _create_event_mocks(new_room.id)
 
 
-def _create_event(event_type: EventType, action: str, trigger: str):
+def _create_event_mocks(room_id: uuid.UUID):
+    for event_type in EventType:
+        match event_type:
+            case EventType.TEMPERATURE:
+                _create_event(room_id, event_type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
+            case EventType.SUN:
+                _create_event(room_id, event_type, "Jalousie geschlossen", "Starke Sonneneinstrahlung")
+            case EventType.RAIN:
+                _create_event(room_id, event_type, "Dachfenster geschlossen", "Angrenzende Gebäude melden Regen")
+            case EventType.AIR_QUALITY:
+                _create_event(room_id, event_type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
+            case EventType.DAYLIGHT:
+                _create_event(room_id, event_type, "Beleuchtung eingeschaltet", "Sonnenuntergang")
+            case EventType.FORECAST:
+                _create_event(room_id, event_type, "Dachfenster geschlossen", "Wettervorhersage meldet Regen")
+            case EventType.OCCUPANCY:
+                _create_event(room_id, event_type, "Heizen auf 22 Grad Celsius", "Raum belegt")
+
+
+def _create_event(room_id: uuid.UUID, event_type: EventType, action: str, trigger: str):
     event = Event(
         id=uuid.uuid4(),
+        room_id=room_id,
         type=event_type,
         action=action,
         trigger=trigger,

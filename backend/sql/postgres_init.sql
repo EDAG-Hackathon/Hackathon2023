@@ -65,6 +65,7 @@ CREATE TYPE event_type AS ENUM ('temperature', 'forecast', 'sun', 'rain', 'dayli
 
 CREATE TABLE IF NOT EXISTS events (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    room_id UUID REFERENCES rooms(id),
     type event_type NOT NULL,
     action VARCHAR(255) NOT NULL,
     trigger VARCHAR(255),
