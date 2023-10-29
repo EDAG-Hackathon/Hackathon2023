@@ -252,19 +252,19 @@ def _create_event_mocks():
         for type in EventType:
             match type:
                 case EventType.TEMPERATURE:
-                    _create_event(type, "Temperatur Action", "Temperatur Trigger")
+                    _create_event(type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
                 case EventType.SUN:
-                    _create_event(type, "Sun Action", "Sun Trigger")
+                    _create_event(type, "Jalousie geschlossen", "Starke Sonneneinstrahlung")
                 case EventType.RAIN:
-                    _create_event(type, "Rain Action", "Rain Trigger")
+                    _create_event(type, "Dachfenster geschlossen", "Angrenzende Gebäude melden Regen")
                 case EventType.AIR_QUALITY:
-                    _create_event(type, "Air Quality Action", "Air Quality Trigger")
+                    _create_event(type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
                 case EventType.DAYLIGHT:
-                    _create_event(type, "Daylight Action", "Daylight Trigger")
+                    _create_event(type, "Beleuchtung eingeschaltet", "Sonnenuntergang")
                 case EventType.FORECAST:
-                    _create_event(type, "Forecast Action", "Forecast Trigger")
+                    _create_event(type, "Dachfenster geschlossen", "Wettervorhersage meldet Regen")
                 case EventType.OCCUPANCY:
-                    _create_event(type, "Occupance Action", "Occupancy Trigger")
+                    _create_event(type, "Heizen auf 22 Grad Celsius", "Raum belegt")
 
 
 def _create_event(type: EventType, action: str, trigger: str):
