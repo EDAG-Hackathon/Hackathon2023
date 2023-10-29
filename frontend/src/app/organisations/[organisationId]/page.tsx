@@ -1,5 +1,5 @@
 "use client";
-import { Box, Divider, Link } from "@mui/material";
+import {Box, Card, Divider, Link} from "@mui/material";
 import Map from "@/components/map";
 import { useEffect, useState } from "react";
 import { useFetch } from "@/hooks/use-fetch";
@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import OrganisationMarker from "@/components/markers/organisation-marker";
 
 type Building = {
   id: string;
@@ -45,29 +46,37 @@ export default function Page({
   );
 
   return (
-    <>
-      <Box sx={{ height: "50vh", width: "100%" }}>
-        <Map />
-      </Box>
-      <Box sx={{ height: "50vh", width: "100%" }}>
-        <Box
+    <div>
+      <Box height="100vh" width="100%">
+        <Map
+        />
+        <Card
           sx={{
-            height: "50vh",
+            padding: "1rem",
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+            height: "45vh",
             maxHeight: "50vh",
-            width: "100%",
-            color: "primary.main",
+            width: "400px",
             overflow: "scroll",
-            marginLeft: "1rem",
+            marginBottom: "1rem",
           }}
         >
-          <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
-            <Box sx={{ marginBottom: "1rem" }}>
-              <Typography variant="h4">Gebäude</Typography>
+          <Box sx={{position: "sticky", top: 0, zIndex: 1}}>
+            <Box sx={{marginBottom: "1rem", textAlign: "center", color: "primary.main"}}>
+              <Typography variant="h5">Gebäude</Typography>
             </Box>
             <TextField
               id="input-with-sx"
               label="Search"
               variant="outlined"
+              focused={true}
+              sx={{
+                marginLeft: "1rem",
+                marginRight: "1rem",
+                width: "calc(100% - 2rem)",
+              }}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </Box>
@@ -88,8 +97,8 @@ export default function Page({
               </Link>
             ))}
           </List>
-        </Box>
+        </Card>
       </Box>
-    </>
+    </div>
   );
 }
