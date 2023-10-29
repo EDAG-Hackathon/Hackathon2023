@@ -63,8 +63,8 @@ export function EventLog() {
         Eventlog
       </Typography>
       <List>
-        {eventLogItems.map((eventlogItem) => (
-          <EventLogItem item={eventlogItem} />
+        {eventLogItems.map((eventLogItem) => (
+          <EventLogItem key={eventLogItem.id} item={eventLogItem} />
         ))}
       </List>
     </>
