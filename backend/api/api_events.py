@@ -19,7 +19,7 @@ def get_all_events():
         events = []
         if 'room_id' in params:
             try:
-                uuid = UUID(params['building_id'])
+                uuid = UUID(params['room_id'])
             except ValueError as e:
                 raise BadRequestError(e)
 
