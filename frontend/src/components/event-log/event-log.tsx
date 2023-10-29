@@ -1,4 +1,4 @@
-import { List, SvgIconProps, Typography } from "@mui/material";
+import { Box, List, SvgIconProps, Typography } from "@mui/material";
 import { EventLogItem } from "./event-log-item";
 import SensorWindowIcon from "@mui/icons-material/SensorWindow";
 import InsightsIcon from "@mui/icons-material/Insights";
@@ -111,14 +111,16 @@ export function EventLog() {
 
   return (
     <>
-      <Typography variant="h5" sx={{ pb: 5 }}>
-        Eventlog
-      </Typography>
-      <List>
-        {eventLogItems.map((eventLogItem) => (
-          <EventLogItem key={eventLogItem.id} item={eventLogItem} />
-        ))}
-      </List>
+      <Box sx={{ height: "100%", width: "100%" }}>
+        <Typography variant="h5" sx={{ pb: 5 }}>
+          Eventlog
+        </Typography>
+        <List>
+          {eventLogItems.map((eventLogItem) => (
+            <EventLogItem key={eventLogItem.id} item={eventLogItem} />
+          ))}
+        </List>
+      </Box>
     </>
   );
 }
