@@ -84,7 +84,7 @@ export default function Page() {
             {filteredOrganisations.map((organisation) => (
               <Link
                 key={organisation.id}
-                href={`organisations/${organisation.id}/buildings`}
+                href={`organisations/${organisation.id}`}
                 style={{textDecoration: "none", color: "inherit"}}
               >
                 <ListItem>
