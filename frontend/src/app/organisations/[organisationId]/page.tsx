@@ -13,8 +13,9 @@ import {
   Typography,
 } from "@mui/material";
 import OrganisationMarker from "@/components/markers/organisation-marker";
+import BuildingMarker from "@/components/markers/building-marker";
 
-type Building = {
+export type Building = {
   id: string;
   organisation_id: string;
   name: string;
@@ -47,7 +48,11 @@ export default function Page({
   return (
     <div>
       <Box height="100vh" width="100%">
-        <Map markers={[]} />
+        <Map
+          markers={filteredBuildings.map((building) => (
+            <BuildingMarker building={building} />
+          ))}
+        />
         <Card
           sx={{
             padding: "1rem",
