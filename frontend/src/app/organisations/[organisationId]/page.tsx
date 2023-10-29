@@ -50,7 +50,10 @@ export default function Page({
       <Box height="100vh" width="100%">
         <Map
           markers={filteredBuildings.map((building) => (
-            <BuildingMarker building={building} />
+            <BuildingMarker
+              building={building}
+              basePath={`/organisations/${organisation_id}`}
+            />
           ))}
         />
         <Card
@@ -64,7 +67,7 @@ export default function Page({
             width: "400px",
             overflow: "scroll",
             marginBottom: "1rem",
-            color: "primary.main"
+            color: "primary.main",
           }}
         >
           <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
