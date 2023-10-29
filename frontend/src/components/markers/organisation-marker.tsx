@@ -144,7 +144,7 @@ export default function OrganisationMarker({
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Link href={`/organisations/${organisation.id}/buildings`}>
+              <Link href={`/organisations/${organisation.id}`}>
                 <Button size="small" color="primary">
                   Gebäude anzeigen
                 </Button>
