@@ -15,12 +15,12 @@ export type Room = {
   room_humidity: number;
 };
 
-export default function Page() {
+export default function Page({ params }: { params: { buildingId: string } }) {
   return (
     <>
       <Box sx={{ height: "100%", width: "100%", p: 5, color: "primary.main" }}>
         <Typography variant="h4" sx={{ pb: 5 }}>
-          Raumliste
+          Gebäude {params.buildingId}
         </Typography>
         <Grid container spacing={10}>
           <Grid item xs={4}>
