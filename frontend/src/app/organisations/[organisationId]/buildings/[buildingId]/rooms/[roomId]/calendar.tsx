@@ -5,7 +5,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { CreateEditEventDialog } from "./create-edit-event-dialog";
 import { Room } from "./page";
 import { Stack } from "@mui/system";
-import { Button, Container } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useFetch } from "@/hooks/use-fetch";
 
 type Appointment = {
@@ -34,37 +34,26 @@ export function Calendar(params: { selectedRoom: Room }) {
   const { data, error, isLoading } = useFetch<Appointment[]>(
     `http://localhost:8000/api/appointments?room_id=${params.selectedRoom.id}`
   );
-  const appointments =
-    data?.map((element: any) => {
-      return {
+  const appointments = Array.isArray(data)
+    ? data.map((element: any) => ({
         ...element,
         start: element.start_time,
         end: element.end_time,
-      };
-    }) || [];
+      }))
+    : [];
 
   return (
     <div>
+      <Typography variant="h5" sx={{ pb: 5 }}>
+        Raumbelegung
+      </Typography>
       <CreateEditEventDialog
         isModalOpen={isModalOpen}
         selectedRoom={params.selectedRoom}
         onClose={handleModalClose}
       />
+
       <Stack direction="column">
-        <Container
-          maxWidth={false}
-          sx={{
-            margin: 2,
-            display: "flex",
-            justifyContent: "end",
-            width: "100%",
-            maxWidth: "100%",
-          }}
-        >
-          <Button variant="contained" onClick={handleSelect}>
-            Termin erstellen
-          </Button>
-        </Container>
         <FullCalendar
           selectable
           events={appointments}
@@ -83,6 +72,20 @@ export function Calendar(params: { selectedRoom: Room }) {
           height={"auto"}
           firstDay={1}
         />
+        <Container
+          maxWidth={false}
+          sx={{
+            margin: 2,
+            display: "flex",
+            justifyContent: "end",
+            width: "100%",
+            maxWidth: "100%",
+          }}
+        >
+          <Button variant="contained" onClick={handleSelect}>
+            Termin erstellen
+          </Button>
+        </Container>
       </Stack>
     </div>
   );
