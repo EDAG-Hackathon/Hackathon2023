@@ -13,7 +13,7 @@ export function EventLogItem(params: { item: EventLogItem }) {
           <Grid item xs={2}>
             <IconComponent sx={{ m: 1 }} />
           </Grid>
-          <Grid>
+          <Grid xs={10}>
             <Typography
               sx={{ fontSize: 14 }}
               color="text.secondary"

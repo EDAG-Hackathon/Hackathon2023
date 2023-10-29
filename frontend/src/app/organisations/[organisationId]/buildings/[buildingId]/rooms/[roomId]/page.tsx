@@ -4,7 +4,7 @@ import { Calendar } from "./calendar/calendar";
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
-import { EventLog } from "../../../../../../../components/event-log/event-log";
+import { EventLogRoom } from "@/components/event-log/event-log-room";
 import { Room } from "../page";
 
 export default function Page({ params }: { params: { roomId: string } }) {
@@ -43,7 +43,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
           <Calendar selectedRoom={selectedRoom} />
         </Grid>
         <Grid item xs={4}>
-          <EventLog />
+          <EventLogRoom />
         </Grid>
       </Grid>
     </Box>
