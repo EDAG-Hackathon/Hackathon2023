@@ -17,7 +17,9 @@ import Divider from "@mui/material/Divider";
 import { useState } from "react";
 import { useFetch } from "@/hooks/use-fetch";
 
-type Organisation = {
+import OrganisationMarker from "@/components/markers/organisation-marker";
+
+export type Organisation = {
   id: string;
   name: string;
   address: string;
@@ -43,7 +45,11 @@ export default function Page() {
   return (
     <div>
       <Box height="100vh" width="100%">
-        <Map />
+        <Map
+          markers={filteredOrganisations.map((org) => (
+            <OrganisationMarker organisation={org} />
+          ))}
+        />
         <Card
           sx={{
             padding: "1rem",
@@ -80,6 +86,7 @@ export default function Page() {
               <Link
                 key={organisation.id}
                 href={`organisations/${organisation.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
               >
                 <ListItem>
                   <ListItemAvatar>

@@ -27,8 +27,16 @@ export default function Page({ params }: { params: { roomId: string } }) {
   }, []);
 
   return (
-    <Box sx={{ height: "100%", width: "100%", p: 5 }}>
-      <Typography variant="h4" sx={{ pb: 5 }}>
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+        marginRight: "5rem",
+        marginLeft: "1rem",
+        color: "primary.main",
+      }}
+    >
+      <Typography variant="h4">
         Informationen über Raum: {selectedRoom.name}
       </Typography>
       <Grid container spacing={10}>
