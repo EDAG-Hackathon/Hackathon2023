@@ -7,7 +7,11 @@ Hackathon Repository of the EDAG Mobility IT Team.
 DEMO
 
 
-https://github.com/EDAG-Hackathon/Hackathon2023/assets/36050790/a62a1896-1859-49a8-8615-8a929b5c6fd4
+
+
+https://github.com/EDAG-Hackathon/Hackathon2023/assets/36050790/f59a8b36-bda5-412c-9a8e-a68fb6ba9f4a
+
+
 
 
 
