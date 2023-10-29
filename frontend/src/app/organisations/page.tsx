@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import Map from "@/components/map";
 import Divider from "@mui/material/Divider";
-import { useState } from "react";
-import { useFetch } from "@/hooks/use-fetch";
+import {useState} from "react";
+import {useFetch} from "@/hooks/use-fetch";
 
 import OrganisationMarker from "@/components/markers/organisation-marker";
 
@@ -33,7 +33,7 @@ export type Organisation = {
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data, error, isLoading } = useFetch<Organisation[]>(
+  const {data, error, isLoading} = useFetch<Organisation[]>(
     "http://localhost:8000/api/organisations"
   );
   const organisations = data || [];
@@ -47,32 +47,31 @@ export default function Page() {
       <Box height="100vh" width="100%">
         <Map
           markers={filteredOrganisations.map((org) => (
-            <OrganisationMarker organisation={org} />
+            <OrganisationMarker organisation={org}/>
           ))}
         />
         <Card
           sx={{
             padding: "1rem",
-            backgroundColor: "white",
             position: "absolute",
             bottom: 0,
             right: 0,
             height: "45vh",
             maxHeight: "50vh",
             width: "400px",
-            color: "primary.main",
             overflow: "scroll",
             marginBottom: "1rem",
           }}
         >
-          <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
-            <Box sx={{ marginBottom: "1rem", textAlign: "center" }}>
-              <Typography variant="h4">Organisationen</Typography>
+          <Box sx={{position: "sticky", top: 0, zIndex: 1}}>
+            <Box sx={{marginBottom: "1rem", textAlign: "center", color: "primary.main"}}>
+              <Typography variant="h5">Organisationen</Typography>
             </Box>
             <TextField
               id="input-with-sx"
               label="Search"
               variant="outlined"
+              focused={true}
               sx={{
                 marginLeft: "1rem",
                 marginRight: "1rem",
@@ -86,7 +85,7 @@ export default function Page() {
               <Link
                 key={organisation.id}
                 href={`organisations/${organisation.id}/buildings`}
-                style={{ textDecoration: "none", color: "inherit" }}
+                style={{textDecoration: "none", color: "inherit"}}
               >
                 <ListItem>
                   <ListItemAvatar>
