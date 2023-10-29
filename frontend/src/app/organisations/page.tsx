@@ -9,12 +9,13 @@ import {
   ListItemAvatar,
   ListItemText,
   TextField,
-  Typography, Container,
+  Typography,
+  Container,
 } from "@mui/material";
 import Map from "@/components/map";
 import Divider from "@mui/material/Divider";
-import {useState} from "react";
-import {useFetch} from "@/hooks/use-fetch";
+import { useState } from "react";
+import { useFetch } from "@/hooks/use-fetch";
 
 type Organisation = {
   id: string;
@@ -30,7 +31,7 @@ type Organisation = {
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const {data, error, isLoading} = useFetch<Organisation[]>(
+  const { data, error, isLoading } = useFetch<Organisation[]>(
     "http://localhost:8000/api/organisations"
   );
   const organisations = data || [];
@@ -42,7 +43,7 @@ export default function Page() {
   return (
     <div>
       <Box height="100vh" width="100%">
-        <Map/>
+        <Map />
         <Card
           sx={{
             padding: "1rem",
@@ -58,8 +59,8 @@ export default function Page() {
             marginBottom: "1rem",
           }}
         >
-          <Box sx={{position: "sticky", top: 0, zIndex: 1, bgcolor: "white"}}>
-            <Box sx={{marginBottom: "1rem", textAlign: "center"}}>
+          <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
+            <Box sx={{ marginBottom: "1rem", textAlign: "center" }}>
               <Typography variant="h4">Organisationen</Typography>
             </Box>
             <TextField
@@ -78,7 +79,7 @@ export default function Page() {
             {filteredOrganisations.map((organisation) => (
               <Link
                 key={organisation.id}
-                href={`organisations/${organisation.id}/buildings`}
+                href={`organisations/${organisation.id}`}
               >
                 <ListItem>
                   <ListItemAvatar>

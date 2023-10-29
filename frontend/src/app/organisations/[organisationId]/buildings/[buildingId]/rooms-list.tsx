@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Room } from "./page";
+import { Room } from "./rooms/page";
 
 export function RoomsList() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,7 +47,7 @@ export function RoomsList() {
         <Box sx={{ overflow: "scroll" }}>
           <List>
             {filteredRooms.map((room) => (
-              <Link key={room.id} href={`${pathname}/${room.id}`}>
+              <Link key={room.id} href={`${pathname}/rooms/${room.id}`}>
                 <ListItem>
                   <ListItemText primary={room.name} secondary={room.number} />
                 </ListItem>
