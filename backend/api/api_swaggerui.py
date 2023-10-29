@@ -1,4 +1,5 @@
 import base64
+import os
 
 from chalice import Response, Blueprint
 
@@ -10,7 +11,7 @@ def openapi(path):
     if path.startswith('/') or '..' in path:
         return Response(status_code=404, body='Not Found')
 
-    file = open(f'/swaggerui/{path}', 'rb')
+    file = open(f'swaggerui/{path}', 'rb')
 
     if path.endswith('.yaml'):
         content_type = 'application/yaml'
