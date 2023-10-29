@@ -20,7 +20,7 @@ import "dayjs/locale/de";
 import EnergySavingsLeafIcon from "@mui/icons-material/EnergySavingsLeaf";
 
 import "mapbox-gl/dist/mapbox-gl.css";
-import { IconButton } from "@mui/material";
+import { Avatar, IconButton } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,7 +55,12 @@ export default function RootLayout({
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   ZEUS Dashboard
                 </Typography>
-                <AccountCircleIcon fontSize="large" />
+                <IconButton sx={{ p: 0 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={"https://mui.com/static/images/avatar/2.jpg"}
+                  />
+                </IconButton>
               </Toolbar>
             </AppBar>
             <Drawer
