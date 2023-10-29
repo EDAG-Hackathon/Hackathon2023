@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { Room } from "./page";
+import { Room } from "../page";
 import { v4 as uuidv4 } from "uuid";
 import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";

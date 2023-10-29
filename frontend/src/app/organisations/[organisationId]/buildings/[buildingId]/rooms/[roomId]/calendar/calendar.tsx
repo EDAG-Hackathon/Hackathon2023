@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { CreateEditEventDialog } from "./create-edit-event-dialog";
-import { Room } from "./page";
+import { Room } from "../page";
 import { Stack } from "@mui/system";
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useFetch } from "@/hooks/use-fetch";

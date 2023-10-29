@@ -1,6 +1,6 @@
 "use client";
 import Box from "@mui/material/Box";
-import { Calendar } from "./calendar";
+import { Calendar } from "./calendar/calendar";
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
