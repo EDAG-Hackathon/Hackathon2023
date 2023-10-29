@@ -1,13 +1,7 @@
 import * as echarts from "echarts";
 import ReactECharts from "echarts-for-react";
 
-type EChartsOption = echarts.EChartsOption;
-
-var chartDom = document.getElementById("main")!;
-var myChart = echarts.init(chartDom);
-var option: EChartsOption;
-
-option = {
+const option = {
   title: {
     text: "Gebäudetemperatur der letzten Woche",
   },
@@ -85,4 +79,6 @@ option = {
   ],
 };
 
-option && myChart.setOption(option);
+export function TempChart() {
+  return <ReactECharts option={option} />;
+}
