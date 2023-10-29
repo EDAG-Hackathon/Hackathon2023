@@ -16,8 +16,8 @@ def get_all_events() -> list[Event]:
 def create_event(event: Event) -> Event:
     connection, cursor = get_db_connection()
 
-    cursor.execute("INSERT INTO events(id, type, action, trigger, timestamp) VALUES (%s, %s, %s, %s, %s)",
-                   (str(event.id), event.type.value, event.action, event.trigger, event.timestamp))
+    cursor.execute("INSERT INTO events(id, room_id, type, action, trigger, timestamp) VALUES (%s, %s, %s, %s, %s, %s)",
+                   (str(event.id), str(event.room_id), event.type.value, event.action, event.trigger, event.timestamp))
     connection.commit()
 
     close_db_connection(connection, cursor)
