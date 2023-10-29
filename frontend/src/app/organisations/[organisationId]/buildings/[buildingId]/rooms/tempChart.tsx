@@ -2,25 +2,10 @@ import * as echarts from "echarts";
 import ReactECharts from "echarts-for-react";
 
 const option = {
-  title: {
-    text: "Gebäudetemperatur der letzten Woche",
-  },
   tooltip: {
     trigger: "axis",
   },
   legend: {},
-  toolbox: {
-    show: true,
-    feature: {
-      dataZoom: {
-        yAxisIndex: "none",
-      },
-      dataView: { readOnly: false },
-      magicType: { type: ["line", "bar"] },
-      restore: {},
-      saveAsImage: {},
-    },
-  },
   xAxis: {
     type: "category",
     boundaryGap: false,
@@ -34,47 +19,20 @@ const option = {
   },
   series: [
     {
-      name: "Highest",
+      name: "Soll",
       type: "line",
-      data: [20, 19, 19.5, 21, 20.5, 17.5, 17],
+      data: [21, 21, 22, 20, 20.5, 18, 18],
       markPoint: {
         data: [
           { type: "max", name: "Max" },
           { type: "min", name: "Min" },
         ],
       },
-      markLine: {
-        data: [{ type: "average", name: "Avg" }],
-      },
     },
     {
-      name: "Lowest",
+      name: "Ist",
       type: "line",
-      data: [18, 17.5, 18.5, 17, 17, 15, 15.5],
-      markPoint: {
-        data: [{ name: "周最低", value: -2, xAxis: 1, yAxis: -1.5 }],
-      },
-      markLine: {
-        data: [
-          { type: "average", name: "Avg" },
-          [
-            {
-              symbol: "none",
-              x: "90%",
-              yAxis: "max",
-            },
-            {
-              symbol: "circle",
-              label: {
-                position: "start",
-                formatter: "Max",
-              },
-              type: "max",
-              name: "最高点",
-            },
-          ],
-        ],
-      },
+      data: [21.5, 21, 21.5, 20, 20, 16.5, 17.5],
     },
   ],
 };
