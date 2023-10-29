@@ -7,7 +7,16 @@ import { EventLog } from "@/components/event-log/event-log";
 
 export default function Page({ params }: { params: { buildingId: string } }) {
   return (
-    <Box sx={{ height: "100%", width: "100%", p: 5, color: "primary.main" }}>
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+        p: 5,
+        marginRight: "5rem",
+        marginLeft: "1rem",
+        color: "primary.main",
+      }}
+    >
       <Typography variant="h4" sx={{ pb: 5 }}>
         Gebäude {params.buildingId}
       </Typography>

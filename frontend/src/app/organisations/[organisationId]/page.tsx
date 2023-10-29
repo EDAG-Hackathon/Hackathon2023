@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useFetch } from "@/hooks/use-fetch";
 import { usePathname } from "next/navigation";
 import {
-  Avatar,
   List,
   ListItem,
   ListItemAvatar,
@@ -49,7 +48,7 @@ export default function Page({
       <Box sx={{ height: "50vh", width: "100%" }}>
         <Map />
       </Box>
-      <Box sx={{ height: "50vh", width: "100%" }}>
+      <Box sx={{ height: "50vh", width: "100%", m: 5 }}>
         <Box
           sx={{
             height: "50vh",
@@ -60,7 +59,7 @@ export default function Page({
             marginLeft: "1rem",
           }}
         >
-          <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
+          <Box sx={{}}>
             <Box sx={{ marginBottom: "1rem" }}>
               <Typography variant="h4">Gebäude</Typography>
             </Box>

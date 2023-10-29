@@ -27,47 +27,37 @@ export function RoomsList() {
 
   return (
     <>
-      <Box
-        sx={{
-          height: "100%",
-          width: "100%",
-          marginRight: "5rem",
-          marginLeft: "1rem",
-          color: "primary.main",
-        }}
-      >
-        <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <Typography variant="h4">Raumliste</Typography>
-          </Box>
-          <TextField
-            id="input-with-sx"
-            label="Search"
-            sx={{
-              marginLeft: "1rem",
-              marginRight: "1rem",
-              width: "calc(100% - 2rem)",
-            }}
-            variant="outlined"
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+      <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+        <Box sx={{ marginBottom: "1rem" }}>
+          <Typography variant="h5">Raumliste</Typography>
         </Box>
-        <Box sx={{ overflow: "scroll" }}>
-          <List>
-            {filteredRooms.map((room) => (
-              <Link
-                key={room.id}
-                href={`${pathname}/rooms/${room.id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <ListItem>
-                  <ListItemText primary={room.name} secondary={room.number} />
-                </ListItem>
-                <Divider />
-              </Link>
-            ))}
-          </List>
-        </Box>
+        <TextField
+          id="input-with-sx"
+          label="Search"
+          sx={{
+            marginLeft: "1rem",
+            marginRight: "1rem",
+            width: "calc(100% - 2rem)",
+          }}
+          variant="outlined"
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </Box>
+      <Box sx={{ overflow: "scroll" }}>
+        <List>
+          {filteredRooms.map((room) => (
+            <Link
+              key={room.id}
+              href={`${pathname}/rooms/${room.id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <ListItem>
+                <ListItemText primary={room.name} secondary={room.number} />
+              </ListItem>
+              <Divider />
+            </Link>
+          ))}
+        </List>
       </Box>
     </>
   );
