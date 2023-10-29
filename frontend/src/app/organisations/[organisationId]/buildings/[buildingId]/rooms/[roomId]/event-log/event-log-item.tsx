@@ -7,7 +7,7 @@ export function EventLogItem(params: { item: EventLogItem }) {
   const IconComponent = iconMapping[item.type];
 
   return (
-    <Card sx={{ minWidth: 275, mb: 2 }}>
+    <Card sx={{ minWidth: 275, mb: 2, cursor: "pointer" }}>
       <CardContent>
         <Grid container alignItems="center">
           <Grid item xs={2}>
