@@ -50,25 +50,13 @@ export function EventLog() {
   >([
     {
       id: uuidv4().toString(),
-      timestamp: new Date("2023-10-26 10:00"),
-      type: EventLogItemType.airquality,
-      action: "Belüftung eingeschaltet",
-      trigger: "CO₂ > 1000ppm",
-    },
-    {
-      id: uuidv4().toString(),
-      timestamp: new Date("2023-10-26 15:00"),
+      timestamp: new Date(),
       type: EventLogItemType.sun,
-      action: "Jalousie geschlossen",
-      trigger: "Starke Sonneneinstrahlung",
+      action: "Fenster auf Nordseite geschlossen",
+      trigger: "Gebäude E meldet Starkregen und Wind aus nördlicher Richtung",
     },
-    {
-      id: uuidv4().toString(),
-      timestamp: new Date("2023-10-27 07:30"),
-      type: EventLogItemType.occupancy,
-      action: "Heizen auf 22°C",
-      trigger: "Raum belegt",
-    },
+  ]);
+  const [eventLogItems, setEventLogItems] = useState<EventLogItem[]>([
     {
       id: uuidv4().toString(),
       timestamp: new Date("2023-10-27 10:00"),
@@ -78,19 +66,10 @@ export function EventLog() {
     },
     {
       id: uuidv4().toString(),
-      timestamp: new Date("2023-10-27 18:00"),
+      timestamp: new Date("2023-10-28 18:00"),
       type: EventLogItemType.daylight,
       action: "Beleuchtung eingeschaltet",
       trigger: "Sonnenuntergang",
-    },
-  ]);
-  const [eventLogItems, setEventLogItems] = useState<EventLogItem[]>([
-    {
-      id: uuidv4().toString(),
-      timestamp: new Date("2023-10-26 06:00"),
-      type: EventLogItemType.temperature,
-      action: "Heizen auf 18°C",
-      trigger: "Temperatur < 15°C",
     },
   ]);
 
