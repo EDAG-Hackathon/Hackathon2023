@@ -94,6 +94,13 @@ paths:
       tags:
         - buildings
       summary: get all buildings
+      parameters:
+        - in: query
+          name: organisation_id
+          schema:
+            type: string
+            format: uuid
+          description: fetch buildings for organisation with given id
       responses:
         '200':
           description: success
@@ -151,6 +158,13 @@ paths:
       tags:
         - rooms
       summary: get all rooms
+      parameters:
+        - in: query
+          name: building_id
+          schema:
+            type: string
+            format: uuid
+          description: fetch rooms for building with given id
       responses:
         '200':
           description: success
@@ -208,6 +222,13 @@ paths:
       tags:
         - appointments
       summary: get appointments
+      parameters:
+        - in: query
+          name: room_id
+          schema:
+            type: string
+            format: uuid
+          description: fetch appointments for room with given id
       responses:
         '200':
           description: success
@@ -265,6 +286,13 @@ paths:
       tags:
         - events
       summary: get all events
+      parameters:
+        - in: query
+          name: room_id
+          schema:
+            type: string
+            format: uuid
+          description: fetch events for room with given id
       responses:
         '200':
           description: success
