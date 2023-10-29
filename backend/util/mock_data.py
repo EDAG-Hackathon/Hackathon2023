@@ -249,22 +249,22 @@ def _create_rooms(building_id: uuid.UUID):
 
 def _create_event_mocks():
     for count in range(1, 5):
-        for type in EventType:
-            match type:
+        for event_type in EventType:
+            match event_type:
                 case EventType.TEMPERATURE:
-                    _create_event(type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
+                    _create_event(event_type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
                 case EventType.SUN:
-                    _create_event(type, "Jalousie geschlossen", "Starke Sonneneinstrahlung")
+                    _create_event(event_type, "Jalousie geschlossen", "Starke Sonneneinstrahlung")
                 case EventType.RAIN:
-                    _create_event(type, "Dachfenster geschlossen", "Angrenzende Gebäude melden Regen")
+                    _create_event(event_type, "Dachfenster geschlossen", "Angrenzende Gebäude melden Regen")
                 case EventType.AIR_QUALITY:
-                    _create_event(type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
+                    _create_event(event_type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
                 case EventType.DAYLIGHT:
-                    _create_event(type, "Beleuchtung eingeschaltet", "Sonnenuntergang")
+                    _create_event(event_type, "Beleuchtung eingeschaltet", "Sonnenuntergang")
                 case EventType.FORECAST:
-                    _create_event(type, "Dachfenster geschlossen", "Wettervorhersage meldet Regen")
+                    _create_event(event_type, "Dachfenster geschlossen", "Wettervorhersage meldet Regen")
                 case EventType.OCCUPANCY:
-                    _create_event(type, "Heizen auf 22 Grad Celsius", "Raum belegt")
+                    _create_event(event_type, "Heizen auf 22 Grad Celsius", "Raum belegt")
 
 
 def _create_event(type: EventType, action: str, trigger: str):
