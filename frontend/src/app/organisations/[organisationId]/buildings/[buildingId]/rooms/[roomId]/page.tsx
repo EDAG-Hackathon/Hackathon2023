@@ -37,10 +37,8 @@ export default function Page({ params }: { params: { roomId: string } }) {
         p: 5,
       }}
     >
-      <Typography variant="h4">
-        Informationen über Raum: {selectedRoom.name}
-      </Typography>
-      <Grid container spacing={10}>
+      <Typography variant="h4">{selectedRoom.name}</Typography>
+      <Grid container spacing={10} pt={3}>
         <Grid item xs={8}>
           <Calendar selectedRoom={selectedRoom} />
         </Grid>

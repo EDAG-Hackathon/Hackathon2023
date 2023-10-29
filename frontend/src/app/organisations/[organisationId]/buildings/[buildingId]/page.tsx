@@ -4,8 +4,15 @@ import Box from "@mui/material/Box";
 import { RoomsList } from "./rooms-list";
 import BuildingStats from "./building-stats";
 import { EventLog } from "@/components/event-log/event-log";
+import { useFetch } from "@/hooks/use-fetch";
+import { Building } from "../../page";
 
 export default function Page({ params }: { params: { buildingId: string } }) {
+  const { data, error, isLoading } = useFetch<Building>(
+    `http://localhost:8000/api/buildings/${params.buildingId}`
+  );
+  const building = data;
+
   return (
     <Box
       sx={{
@@ -18,7 +25,7 @@ export default function Page({ params }: { params: { buildingId: string } }) {
       }}
     >
       <Typography variant="h4" sx={{ pb: 5 }}>
-        Gebäude {params.buildingId}
+        {building ? building.name : ""}
       </Typography>
       <Grid container spacing={10}>
         <Grid item xs={4}>

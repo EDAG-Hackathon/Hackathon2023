@@ -1,25 +1,21 @@
-import {Marker} from "react-map-gl";
+import { Marker } from "react-map-gl";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import {Button, CardActionArea, CardActions} from "@mui/material";
+import { Button, CardActionArea, CardActions } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
 import ReactECharts from "echarts-for-react";
-import {useState} from "react";
+import { useState } from "react";
 import Link from "next/link";
-import {Building} from "@/app/buildings/[buildingId]/page";
+import { Building } from "@/app/buildings/[buildingId]/page";
 import Box from "@mui/material/Box";
 
-export default function BuildingMarker({
-                                         building,
-                                       }: {
-  building: Building;
-}) {
+export default function BuildingMarker({ building }: { building: Building }) {
   const [open, setOpen] = useState(false);
 
   const chartOption = {
-    grid: {top: 8, right: 8, bottom: 24, left: 36},
+    grid: { top: 8, right: 8, bottom: 24, left: 36 },
     xAxis: {
       type: "category",
     },
@@ -28,113 +24,113 @@ export default function BuildingMarker({
     },
     series: [
       {
-        type: 'gauge',
-        center: ['50%', '60%'],
+        type: "gauge",
+        center: ["50%", "60%"],
         startAngle: 200,
         endAngle: -20,
         min: 0,
         max: 60,
         splitNumber: 12,
         itemStyle: {
-          color: '#FFAB91'
+          color: "#FFAB91",
         },
         progress: {
           show: true,
-          width: 30
+          width: 30,
         },
 
         pointer: {
-          show: false
+          show: false,
         },
         axisLine: {
           lineStyle: {
-            width: 30
-          }
+            width: 30,
+          },
         },
         axisTick: {
           distance: -45,
           splitNumber: 5,
           lineStyle: {
             width: 2,
-            color: '#999'
-          }
+            color: "#999",
+          },
         },
         splitLine: {
           distance: -52,
           length: 14,
           lineStyle: {
             width: 3,
-            color: '#999'
-          }
+            color: "#999",
+          },
         },
         axisLabel: {
           distance: -5,
-          color: '#999',
-          fontSize: 15
+          color: "#999",
+          fontSize: 15,
         },
         anchor: {
-          show: false
+          show: false,
         },
         title: {
-          show: false
+          show: false,
         },
         detail: {
           valueAnimation: true,
-          width: '70%',
+          width: "70%",
           lineHeight: 40,
           borderRadius: 8,
-          offsetCenter: [0, '-15%'],
+          offsetCenter: [0, "-15%"],
           fontSize: 30,
-          fontWeight: 'bolder',
-          formatter: '{value} °C',
-          color: 'inherit'
+          fontWeight: "bolder",
+          formatter: "{value} °C",
+          color: "inherit",
         },
         data: [
           {
-            value: 20
-          }
-        ]
+            value: 20,
+          },
+        ],
       },
 
       {
-        type: 'gauge',
-        center: ['50%', '60%'],
+        type: "gauge",
+        center: ["50%", "60%"],
         startAngle: 200,
         endAngle: -20,
         min: 0,
         max: 60,
         itemStyle: {
-          color: '#FD7347'
+          color: "#FD7347",
         },
         progress: {
           show: true,
-          width: 8
+          width: 8,
         },
 
         pointer: {
-          show: false
+          show: false,
         },
         axisLine: {
-          show: false
+          show: false,
         },
         axisTick: {
-          show: false
+          show: false,
         },
         splitLine: {
-          show: false
+          show: false,
         },
         axisLabel: {
-          show: false
+          show: false,
         },
         detail: {
-          show: false
+          show: false,
         },
         data: [
           {
-            value: 20
-          }
-        ]
-      }
+            value: 20,
+          },
+        ],
+      },
     ],
     tooltip: {
       trigger: "axis",
@@ -158,7 +154,7 @@ export default function BuildingMarker({
             top: "27px",
           }}
         >
-          <Card sx={{maxWidth: 370}}>
+          <Card sx={{ maxWidth: 370 }}>
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -170,11 +166,11 @@ export default function BuildingMarker({
                 <Typography gutterBottom variant="h5" component="div">
                   {building.name}
                 </Typography>
-                  <ReactECharts option={chartOption}/>
+                <ReactECharts option={chartOption} />
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Link href={`/buildings/${building.id}/buildings`}>
+              <Link href={`/buildings/${building.id}`}>
                 <Button size="small" color="primary">
                   Räume anzeigen
                 </Button>
