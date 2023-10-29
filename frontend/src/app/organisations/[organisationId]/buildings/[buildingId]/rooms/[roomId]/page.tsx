@@ -3,16 +3,17 @@ import Box from "@mui/material/Box";
 import { Calendar } from "./calendar";
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
-
-export type Room = {
-  id: string;
-  name: string;
-};
+import { Room } from "../page";
 
 export default function Page({ params }: { params: { roomId: string } }) {
   const [selectedRoom, setSelectedRoom] = useState<Room>({
     id: params.roomId,
+    building_id: "",
     name: "Demoroom",
+    number: "123",
+    room_temp_occupied: 0,
+    room_temp_unoccupied: 0,
+    room_humidity: 0,
   });
 
   useEffect(() => {
