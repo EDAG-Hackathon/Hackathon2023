@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ["echarts", "zrender"],
   async redirects() {
     return [
       {
