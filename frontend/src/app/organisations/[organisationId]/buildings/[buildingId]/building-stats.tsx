@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { TempChart } from "./rooms/tempChart";
+import { TempGauge } from "./rooms/tempGauge";
 
 export default function BuildingStats() {
   return (
@@ -8,7 +9,11 @@ export default function BuildingStats() {
         Statistiken
       </Typography>
       <Typography variant="h6" sx={{ pb: 5 }}>
-        Temperatur der vergangenden 7 Tage
+        Aktuelle Gebäude-Temperatur
+      </Typography>
+      <TempGauge />
+      <Typography variant="h6" sx={{ pb: 5 }}>
+        Gebäude-Temperatur der vergangenden 7 Tage
       </Typography>
       <TempChart />
     </Box>
