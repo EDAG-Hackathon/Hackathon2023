@@ -17,8 +17,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "dayjs/locale/de";
+import EnergySavingsLeafIcon from "@mui/icons-material/EnergySavingsLeaf";
 
 import "mapbox-gl/dist/mapbox-gl.css";
+import { IconButton } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +35,14 @@ export default function RootLayout({
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
       <html lang="de">
         <body className={inter.className} style={{ margin: 0 }}>
-          <Box sx={{ width: "100%", height: "100vh", position: "relative", overflow: "hidden"}}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "100vh",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
             <CssBaseline />
             <AppBar
               position="fixed"
@@ -42,7 +51,8 @@ export default function RootLayout({
               <Toolbar
                 sx={{ display: "flex", justifyContent: "space-between" }}
               >
-                <Typography variant="h6" noWrap component="div">
+                <EnergySavingsLeafIcon sx={{ mr: 2 }} />
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   ZEUS Dashboard
                 </Typography>
                 <AccountCircleIcon fontSize="large" />
