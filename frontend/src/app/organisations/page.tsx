@@ -44,7 +44,7 @@ export default function Page() {
 
   return (
     <div>
-      <Box height="100vh" width="100%">
+      <Box height="100vh" width="100%" color="primary.main">
         <Map
           markers={filteredOrganisations.map((org) => (
             <OrganisationMarker organisation={org}/>
@@ -61,6 +61,7 @@ export default function Page() {
             width: "400px",
             overflow: "scroll",
             marginBottom: "1rem",
+            color: "primary.main",
           }}
         >
           <Box sx={{position: "sticky", top: 0, zIndex: 1}}>
