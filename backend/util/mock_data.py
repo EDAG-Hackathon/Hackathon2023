@@ -1,8 +1,8 @@
 import uuid
 from datetime import datetime, timedelta, date
 
-from db import organisation_db, building_db, room_db, appointment_db
-from models.models import Organisation, Coordinates, Building, Room, Appointment
+from db import organisation_db, building_db, room_db, appointment_db, event_db
+from models.models import Organisation, Coordinates, Building, Room, Appointment, EventType, Event
 from util.util import parse_model
 
 
@@ -140,6 +140,8 @@ def generate_mock_data():
 
                     _create_rooms(new_building.id)
 
+    _create_event_mocks()
+
 
 def _create_rooms(building_id: uuid.UUID):
     for room_count in range(1, 21):
@@ -165,8 +167,10 @@ def _create_rooms(building_id: uuid.UUID):
                         room_id=new_room.id,
                         title="Meeting",
                         recurring=False,
-                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=9, minute=30),
-                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=10, minute=30)
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                            year=appointment_date.year, hour=9, minute=30),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                          year=appointment_date.year, hour=10, minute=30)
                     )
                     appointment_db.create_appointment(appointment)
                 case 1:
@@ -175,8 +179,10 @@ def _create_rooms(building_id: uuid.UUID):
                         room_id=new_room.id,
                         title="Daily",
                         recurring=False,
-                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=00),
-                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=30)
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                            year=appointment_date.year, hour=8, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                          year=appointment_date.year, hour=8, minute=30)
                     )
                     appointment_db.create_appointment(appointment)
                 case 2:
@@ -185,8 +191,10 @@ def _create_rooms(building_id: uuid.UUID):
                         room_id=new_room.id,
                         title="Staffing",
                         recurring=False,
-                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=00),
-                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=30)
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                            year=appointment_date.year, hour=8, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                          year=appointment_date.year, hour=8, minute=30)
                     )
                     appointment_db.create_appointment(appointment)
                 case 3:
@@ -195,8 +203,10 @@ def _create_rooms(building_id: uuid.UUID):
                         room_id=new_room.id,
                         title="Planning",
                         recurring=False,
-                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=12, minute=30),
-                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=14, minute=00)
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                            year=appointment_date.year, hour=12, minute=30),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                          year=appointment_date.year, hour=14, minute=00)
                     )
                     appointment_db.create_appointment(appointment)
                 case 4:
@@ -205,8 +215,10 @@ def _create_rooms(building_id: uuid.UUID):
                         room_id=new_room.id,
                         title="Review",
                         recurring=False,
-                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=9, minute=00),
-                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=12, minute=25)
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                            year=appointment_date.year, hour=9, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                          year=appointment_date.year, hour=12, minute=25)
                     )
                     appointment_db.create_appointment(appointment)
                 case 5:
@@ -215,8 +227,10 @@ def _create_rooms(building_id: uuid.UUID):
                         room_id=new_room.id,
                         title="Refinement",
                         recurring=False,
-                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=13, minute=00),
-                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=15, minute=00)
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                            year=appointment_date.year, hour=13, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                          year=appointment_date.year, hour=15, minute=00)
                     )
                     appointment_db.create_appointment(appointment)
                 case 6:
@@ -225,7 +239,41 @@ def _create_rooms(building_id: uuid.UUID):
                         room_id=new_room.id,
                         title="TownHall",
                         recurring=False,
-                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=00),
-                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=15, minute=00)
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                            year=appointment_date.year, hour=8, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month,
+                                          year=appointment_date.year, hour=15, minute=00)
                     )
                     appointment_db.create_appointment(appointment)
+
+
+def _create_event_mocks():
+    for count in range(1, 5):
+        for event_type in EventType:
+            match event_type:
+                case EventType.TEMPERATURE:
+                    _create_event(event_type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
+                case EventType.SUN:
+                    _create_event(event_type, "Jalousie geschlossen", "Starke Sonneneinstrahlung")
+                case EventType.RAIN:
+                    _create_event(event_type, "Dachfenster geschlossen", "Angrenzende Gebäude melden Regen")
+                case EventType.AIR_QUALITY:
+                    _create_event(event_type, "Belüftung eingeschaltet", "CO2 > 1000ppm")
+                case EventType.DAYLIGHT:
+                    _create_event(event_type, "Beleuchtung eingeschaltet", "Sonnenuntergang")
+                case EventType.FORECAST:
+                    _create_event(event_type, "Dachfenster geschlossen", "Wettervorhersage meldet Regen")
+                case EventType.OCCUPANCY:
+                    _create_event(event_type, "Heizen auf 22 Grad Celsius", "Raum belegt")
+
+
+def _create_event(event_type: EventType, action: str, trigger: str):
+    event = Event(
+        id=uuid.uuid4(),
+        type=event_type,
+        action=action,
+        trigger=trigger,
+        timestamp=datetime.now()
+    )
+
+    event_db.create_event(event)

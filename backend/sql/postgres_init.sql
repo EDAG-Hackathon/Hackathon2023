@@ -55,8 +55,18 @@ CREATE TABLE IF NOT EXISTS sensors (
 CREATE TABLE IF NOT EXISTS appointments (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     room_id UUID REFERENCES rooms(id),
-    title VARCHAR(255),
-    start_time TIMESTAMP,
-    end_time TIMESTAMP,
+    title VARCHAR(255) NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
     recurring boolean
+);
+
+CREATE TYPE event_type AS ENUM ('temperature', 'forecast', 'sun', 'rain', 'daylight', 'occupancy', 'airquality');
+
+CREATE TABLE IF NOT EXISTS events (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    type event_type NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    trigger VARCHAR(255),
+    timestamp TIMESTAMP NOT NULL
 );

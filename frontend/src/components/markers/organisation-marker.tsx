@@ -18,24 +18,89 @@ export default function OrganisationMarker({
   const [open, setOpen] = useState(false);
 
   const chartOption = {
-    grid: { top: 8, right: 8, bottom: 24, left: 36 },
-    xAxis: {
-      type: "category",
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    },
-    yAxis: {
-      type: "value",
-    },
     series: [
       {
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: "line",
-        smooth: true,
+        type: "gauge",
+        startAngle: 180,
+        endAngle: 0,
+        center: ["50%", "100%"],
+        radius: "90%",
+        min: 0,
+        max: 1,
+        splitNumber: 8,
+        axisLine: {
+          lineStyle: {
+            width: 6,
+            color: [
+              [0.25, "#7CFFB2"],
+              [0.5, "#58D9F9"],
+              [0.75, "#FDDD60"],
+              [1, "#FF6E76"],
+            ],
+          },
+        },
+        pointer: {
+          icon: "path://M12.8,0.7l12,40.1H0.7L12.8,0.7z",
+          length: "12%",
+          width: 16,
+          offsetCenter: [0, "-55%"],
+          itemStyle: {
+            color: "auto",
+          },
+        },
+        axisTick: {
+          length: 12,
+          lineStyle: {
+            color: "auto",
+            width: 2,
+          },
+        },
+        splitLine: {
+          length: 20,
+          lineStyle: {
+            color: "auto",
+            width: 3,
+          },
+        },
+        axisLabel: {
+          color: "#464646",
+          fontSize: 14,
+          distance: -40,
+          rotate: "tangential",
+          formatter: function (value: number) {
+            if (value === 0.875) {
+              return "Extrem";
+            } else if (value === 0.625) {
+              return "Hoch";
+            } else if (value === 0.375) {
+              return "Mittel";
+            } else if (value === 0.125) {
+              return "Gering";
+            }
+            return "";
+          },
+        },
+        title: {
+          offsetCenter: [0, "-10%"],
+          fontSize: 12,
+        },
+        detail: {
+          fontSize: 26,
+          offsetCenter: [0, "-35%"],
+          valueAnimation: true,
+          formatter: function (value: number) {
+            return Math.round(value * 100) + "";
+          },
+          color: "inherit",
+        },
+        data: [
+          {
+            value: 0.2,
+            name: "Aktueller Energieverbrauch",
+          },
+        ],
       },
     ],
-    tooltip: {
-      trigger: "axis",
-    },
   };
 
   return (
@@ -67,7 +132,15 @@ export default function OrganisationMarker({
                 <Typography gutterBottom variant="h5" component="div">
                   {organisation.name}
                 </Typography>
-                <ReactECharts option={chartOption} />
+                <div
+                  style={{
+                    height: "120px",
+                    position: "relative",
+                    top: "-170px",
+                  }}
+                >
+                  <ReactECharts option={chartOption} />
+                </div>
               </CardContent>
             </CardActionArea>
             <CardActions>
