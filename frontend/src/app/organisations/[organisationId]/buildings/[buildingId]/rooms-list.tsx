@@ -27,11 +27,19 @@ export function RoomsList() {
 
   return (
     <>
-      <Box sx={{ height: "100%", width: "100%" }}>
+      <Box
+        sx={{
+          height: "100%",
+          width: "100%",
+          marginRight: "5rem",
+          marginLeft: "1rem",
+          color: "primary.main",
+        }}
+      >
         <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
-          <Typography variant="h5" sx={{ pb: 5 }}>
-            Raumliste
-          </Typography>
+          <Box sx={{ marginBottom: "1rem" }}>
+            <Typography variant="h4">Raumliste</Typography>
+          </Box>
           <TextField
             id="input-with-sx"
             label="Search"
@@ -39,7 +47,7 @@ export function RoomsList() {
               marginLeft: "1rem",
               marginRight: "1rem",
               width: "calc(100% - 2rem)",
-            }} // Set equal left and right margins
+            }}
             variant="outlined"
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -47,7 +55,11 @@ export function RoomsList() {
         <Box sx={{ overflow: "scroll" }}>
           <List>
             {filteredRooms.map((room) => (
-              <Link key={room.id} href={`${pathname}/rooms/${room.id}`}>
+              <Link
+                key={room.id}
+                href={`${pathname}/rooms/${room.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
                 <ListItem>
                   <ListItemText primary={room.name} secondary={room.number} />
                 </ListItem>

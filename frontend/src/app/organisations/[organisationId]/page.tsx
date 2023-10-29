@@ -76,6 +76,7 @@ export default function Page({
               <Link
                 key={building.id}
                 href={`${pathname}/buildings/${building.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
               >
                 <ListItem>
                   <ListItemText
