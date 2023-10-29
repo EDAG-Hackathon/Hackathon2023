@@ -1,8 +1,9 @@
 "use client";
 import Box from "@mui/material/Box";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { RoomsList } from "./rooms-list";
 import BuildingStats from "./building-stats";
+import { EventLog } from "@/components/event-log/event-log";
 
 export type Room = {
   id: string;
@@ -17,21 +18,19 @@ export type Room = {
 export default function Page() {
   return (
     <>
-      <Box
-        sx={{
-          height: "100%",
-          width: "100%",
-          marginRight: "5rem",
-          marginLeft: "1rem",
-          color: "primary.main",
-        }}
-      >
-        <Grid container>
-          <Grid item xs={6}>
+      <Box sx={{ height: "100%", width: "100%", p: 5, color: "primary.main" }}>
+        <Typography variant="h4" sx={{ pb: 5 }}>
+          Raumliste
+        </Typography>
+        <Grid container spacing={10}>
+          <Grid item xs={4}>
             <RoomsList />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <BuildingStats />
+          </Grid>
+          <Grid item xs={4}>
+            <EventLog />
           </Grid>
         </Grid>
       </Box>

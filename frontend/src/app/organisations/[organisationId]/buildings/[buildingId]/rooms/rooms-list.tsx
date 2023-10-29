@@ -27,33 +27,35 @@ export function RoomsList() {
 
   return (
     <>
-      <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <Typography variant="h4">Raumliste</Typography>
+      <Box sx={{ height: "100%", width: "100%" }}>
+        <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
+          <Typography variant="h5" sx={{ pb: 5 }}>
+            Raumliste
+          </Typography>
+          <TextField
+            id="input-with-sx"
+            label="Search"
+            sx={{
+              marginLeft: "1rem",
+              marginRight: "1rem",
+              width: "calc(100% - 2rem)",
+            }} // Set equal left and right margins
+            variant="outlined"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </Box>
-        <TextField
-          id="input-with-sx"
-          label="Search"
-          sx={{
-            marginLeft: "1rem",
-            marginRight: "1rem",
-            width: "calc(100% - 2rem)",
-          }} // Set equal left and right margins
-          variant="outlined"
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </Box>
-      <Box sx={{ overflow: "scroll" }}>
-        <List>
-          {filteredRooms.map((room) => (
-            <Link key={room.id} href={`${pathname}/${room.id}`}>
-              <ListItem>
-                <ListItemText primary={room.name} secondary={room.number} />
-              </ListItem>
-              <Divider />
-            </Link>
-          ))}
-        </List>
+        <Box sx={{ overflow: "scroll" }}>
+          <List>
+            {filteredRooms.map((room) => (
+              <Link key={room.id} href={`${pathname}/${room.id}`}>
+                <ListItem>
+                  <ListItemText primary={room.name} secondary={room.number} />
+                </ListItem>
+                <Divider />
+              </Link>
+            ))}
+          </List>
+        </Box>
       </Box>
     </>
   );
