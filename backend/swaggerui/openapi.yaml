@@ -34,7 +34,7 @@ paths:
     get:
       tags:
         - organisations
-      summary: get organisations
+      summary: get all organisations
       responses:
         '200':
           description: success
@@ -94,7 +94,7 @@ paths:
     get:
       tags:
         - buildings
-      summary: get buildings
+      summary: get all buildings
       responses:
         '200':
           description: success
@@ -154,7 +154,7 @@ paths:
     get:
       tags:
         - rooms
-      summary: get rooms
+      summary: get all rooms
       responses:
         '200':
           description: success
