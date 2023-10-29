@@ -66,7 +66,7 @@ export default function Page({
             marginBottom: "1rem",
           }}
         >
-          <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+          <Box sx={{ position: "sticky", top: 0, zIndex: 1, bgcolor: "white" }}>
             <Box sx={{ marginBottom: "1rem", textAlign: "center" }}>
               <Typography variant="h4">Gebäude</Typography>
             </Box>
