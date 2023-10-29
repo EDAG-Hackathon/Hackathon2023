@@ -1,4 +1,5 @@
 from datetime import datetime
+from enum import Enum
 from typing import Optional
 from uuid import UUID
 
@@ -47,3 +48,21 @@ class Appointment(BaseModel):
     end_time: datetime
     recurring: bool = False
     editable: bool = False
+
+
+class EventType(Enum):
+    TEMPERATURE = 'temperature'
+    FORECAST = 'forecast'
+    SUN = 'sun'
+    RAIN = 'rain'
+    DAYLIGHT = 'daylight'
+    OCCUPANCY = 'occupancy'
+    AIR_QUALITY = 'airquality'
+
+
+class Event(BaseModel):
+    id: UUID
+    type: EventType
+    action: str
+    trigger: str
+    timestamp: datetime
