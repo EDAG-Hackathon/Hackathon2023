@@ -4,7 +4,7 @@ import { Calendar } from "./calendar";
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
-import { EventLog } from "./event-log/event-log";
+import { EventLog } from "../../../../../../../components/event-log/event-log";
 
 export type Room = {
   id: string;
