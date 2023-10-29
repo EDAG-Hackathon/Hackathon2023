@@ -1,7 +1,8 @@
 import uuid
+from datetime import datetime, timedelta, date
 
-from db import organisation_db, building_db, room_db
-from models.models import Organisation, Coordinates, Building, Room
+from db import organisation_db, building_db, room_db, appointment_db
+from models.models import Organisation, Coordinates, Building, Room, Appointment
 from util.util import parse_model
 
 
@@ -153,3 +154,78 @@ def _create_rooms(building_id: uuid.UUID):
         )
 
         room_db.create_room(new_room)
+
+        for day_delta in range(-7, 7):
+            appointment_date = date.today() + timedelta(days=day_delta)
+
+            match (appointment_date.weekday()):
+                case 0:
+                    appointment = Appointment(
+                        id=uuid.uuid4(),
+                        room_id=new_room.id,
+                        title="Meeting",
+                        recurring=False,
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=9, minute=30),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=10, minute=30)
+                    )
+                    appointment_db.create_appointment(appointment)
+                case 1:
+                    appointment = Appointment(
+                        id=uuid.uuid4(),
+                        room_id=new_room.id,
+                        title="Daily",
+                        recurring=False,
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=30)
+                    )
+                    appointment_db.create_appointment(appointment)
+                case 2:
+                    appointment = Appointment(
+                        id=uuid.uuid4(),
+                        room_id=new_room.id,
+                        title="Staffing",
+                        recurring=False,
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=30)
+                    )
+                    appointment_db.create_appointment(appointment)
+                case 3:
+                    appointment = Appointment(
+                        id=uuid.uuid4(),
+                        room_id=new_room.id,
+                        title="Planning",
+                        recurring=False,
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=12, minute=30),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=14, minute=00)
+                    )
+                    appointment_db.create_appointment(appointment)
+                case 4:
+                    appointment = Appointment(
+                        id=uuid.uuid4(),
+                        room_id=new_room.id,
+                        title="Review",
+                        recurring=False,
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=9, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=12, minute=25)
+                    )
+                    appointment_db.create_appointment(appointment)
+                case 5:
+                    appointment = Appointment(
+                        id=uuid.uuid4(),
+                        room_id=new_room.id,
+                        title="Refinement",
+                        recurring=False,
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=13, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=15, minute=00)
+                    )
+                    appointment_db.create_appointment(appointment)
+                case 6:
+                    appointment = Appointment(
+                        id=uuid.uuid4(),
+                        room_id=new_room.id,
+                        title="TownHall",
+                        recurring=False,
+                        start_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=8, minute=00),
+                        end_time=datetime(day=appointment_date.day, month=appointment_date.month, year=appointment_date.year, hour=15, minute=00)
+                    )
+                    appointment_db.create_appointment(appointment)
