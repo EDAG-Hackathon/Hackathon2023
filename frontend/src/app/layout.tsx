@@ -92,7 +92,7 @@ export default function RootLayout({
                 </List>
               </Box>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1 }}>
+            <Box component="main" sx={{ flexGrow: 1, marginLeft: "240px" }}>
               <Toolbar />
               {children}
             </Box>

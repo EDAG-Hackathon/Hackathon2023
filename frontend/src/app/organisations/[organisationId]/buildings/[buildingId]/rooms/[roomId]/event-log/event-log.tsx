@@ -7,7 +7,8 @@ import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import WbTwilightIcon from "@mui/icons-material/WbTwilight";
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
 import AirIcon from "@mui/icons-material/Air";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export enum EventLogItemType {
   temperature,
@@ -39,23 +40,74 @@ export type EventLogItem = {
   trigger: string;
 };
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export function EventLog() {
-  const eventLogItems: EventLogItem[] = [
+  const [eventLogItemsStorage, setEventLogItemsStorage] = useState<
+    EventLogItem[]
+  >([
     {
-      id: "78b6328d-7419-4700-b9b6-4a2ab7c1c0e4",
-      timestamp: new Date(),
-      type: EventLogItemType.temperature,
-      action: "Heizen",
-      trigger: "Temperatur < 18°C",
+      id: uuidv4().toString(),
+      timestamp: new Date("2023-10-26 10:00"),
+      type: EventLogItemType.airquality,
+      action: "Belüftung eingeschaltet",
+      trigger: "CO₂ > 1000ppm",
     },
     {
-      id: "129a8bed-1dfc-4c04-9499-13a27220ae34",
-      timestamp: new Date(),
+      id: uuidv4().toString(),
+      timestamp: new Date("2023-10-26 15:00"),
       type: EventLogItemType.sun,
       action: "Jalousie geschlossen",
       trigger: "Starke Sonneneinstrahlung",
     },
-  ];
+    {
+      id: uuidv4().toString(),
+      timestamp: new Date("2023-10-27 07:30"),
+      type: EventLogItemType.occupancy,
+      action: "Heizen auf 22°C",
+      trigger: "Raum belegt",
+    },
+    {
+      id: uuidv4().toString(),
+      timestamp: new Date("2023-10-27 10:00"),
+      type: EventLogItemType.forecast,
+      action: "Dachfenster geschlossen",
+      trigger: "Wettervorhersage meldet Regen",
+    },
+    {
+      id: uuidv4().toString(),
+      timestamp: new Date("2023-10-27 18:00"),
+      type: EventLogItemType.daylight,
+      action: "Beleuchtung eingeschaltet",
+      trigger: "Sonnenuntergang",
+    },
+  ]);
+  const [eventLogItems, setEventLogItems] = useState<EventLogItem[]>([
+    {
+      id: uuidv4().toString(),
+      timestamp: new Date("2023-10-26 06:00"),
+      type: EventLogItemType.temperature,
+      action: "Heizen auf 18°C",
+      trigger: "Temperatur < 15°C",
+    },
+  ]);
+
+  useEffect(() => {
+    const interval = setInterval(moveFirstElement, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [eventLogItemsStorage, eventLogItems]);
+
+  function moveFirstElement() {
+    if (eventLogItemsStorage.length > 0) {
+      const elementToMove = eventLogItemsStorage.shift();
+      setEventLogItemsStorage([...eventLogItemsStorage]);
+      if (elementToMove) setEventLogItems([...eventLogItems, elementToMove]);
+    }
+  }
 
   return (
     <>
