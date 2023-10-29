@@ -1,5 +1,5 @@
 "use client";
-import {Box, Card, Divider, Link} from "@mui/material";
+import { Box, Card, Divider, Link } from "@mui/material";
 import Map from "@/components/map";
 import { useEffect, useState } from "react";
 import { useFetch } from "@/hooks/use-fetch";
@@ -47,8 +47,7 @@ export default function Page({
   return (
     <div>
       <Box height="100vh" width="100%">
-        <Map
-        />
+        <Map markers={[]} />
         <Card
           sx={{
             padding: "1rem",
@@ -62,11 +61,8 @@ export default function Page({
             marginBottom: "1rem",
           }}
         >
-          <Box sx={{position: "sticky", top: 0, zIndex: 1}}>
-            <Box sx={{marginBottom: "1rem", textAlign: "center", color: "primary.main"}}>
-              <Typography variant="h5">Gebäude</Typography>
-          <Box sx={{}}>
-            <Box sx={{ marginBottom: "1rem" }}>
+          <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+            <Box sx={{ marginBottom: "1rem", textAlign: "center" }}>
               <Typography variant="h4">Gebäude</Typography>
             </Box>
             <TextField
