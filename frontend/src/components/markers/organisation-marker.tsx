@@ -8,6 +8,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 
 import { Organisation } from "@/app/organisations/page";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function OrganisationMarker({
   organisation,
@@ -52,9 +53,11 @@ export default function OrganisationMarker({
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Gebäude anzeigen
-              </Button>
+              <Link href={`/organisations/${organisation.id}/buildings`}>
+                <Button size="small" color="primary">
+                  Gebäude anzeigen
+                </Button>
+              </Link>
             </CardActions>
           </Card>
           <PlaceIcon

@@ -6,7 +6,7 @@ export default function Map({ markers }: { markers: any[] }) {
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
       initialViewState={{
         longitude: 9.69612,
-        latitude: 50.56117,
+        latitude: 50.56517,
         zoom: 14,
       }}
       reuseMaps={true}
