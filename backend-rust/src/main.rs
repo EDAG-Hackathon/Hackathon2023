@@ -1,6 +1,7 @@
-use axum::{Router, routing::get};
+use axum::Router;
 use diesel_async::{AsyncPgConnection, pooled_connection::{AsyncDieselConnectionManager, mobc::Pool}};
 use lambda_http::{Error, run};
+use api::setup_api;
 
 mod models;
 mod api;
@@ -16,11 +17,6 @@ async fn main() -> Result<(), Error> {
         .with_state(connection);
 
     run(app).await
-}
-
-fn setup_api() -> Router<Pool<AsyncPgConnection>> {
-    return Router::new()
-        .route("/", get(api::welcome));
 }
 
 fn setup_db_connection() -> Pool<AsyncPgConnection> {

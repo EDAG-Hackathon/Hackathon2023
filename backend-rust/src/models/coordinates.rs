@@ -1,7 +1,8 @@
 use diesel::{AsExpression, FromSqlRow};
 use diesel::pg::sql_types::Jsonb;
+use serde::{Serialize, Deserialize};
 
-#[derive(FromSqlRow, AsExpression, serde::Serialize, serde::Deserialize, Debug, Default)]
+#[derive(FromSqlRow, AsExpression, Serialize, Deserialize, Debug, Default)]
 #[sql_type = "Jsonb"]
 pub struct Coordinates {
     lat: f32,

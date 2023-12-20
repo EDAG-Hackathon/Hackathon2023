@@ -1,8 +1,8 @@
-use diesel::{Queryable, Selectable};
-use serde::Serialize;
+use diesel::{Insertable, Queryable, Selectable};
+use serde::{Serialize, Deserialize};
 use uuid::Uuid;
 
-#[derive(Default, Queryable, Selectable, Serialize)]
+#[derive(Default, Queryable, Selectable, Serialize, Insertable, Deserialize)]
 #[diesel(table_name = crate::schema::organisations)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Organisation {
