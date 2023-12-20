@@ -9,5 +9,5 @@ services:
     environment:
       POSTGRES_USER: backend
       POSTGRES_HOST_AUTH_METHOD: trust
-    volumes:
-      - ./backend/sql:/docker-entrypoint-initdb.d
+    # volumes:
+      # - ./backend/sql:/docker-entrypoint-initdb.d
