@@ -2,6 +2,7 @@ use axum::Router;
 use diesel_async::{AsyncPgConnection, pooled_connection::{AsyncDieselConnectionManager, mobc::Pool}};
 use lambda_http::{Error, run};
 use api::setup_api;
+use dotenv::dotenv;
 
 mod models;
 mod api;
@@ -9,6 +10,8 @@ pub mod schema;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
+    dotenv().ok();
+
     init_tracing();
 
     let connection = setup_db_connection();
