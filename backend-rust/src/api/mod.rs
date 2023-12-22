@@ -5,8 +5,9 @@ use axum::{Json, Router};
 use diesel_async::AsyncPgConnection;
 use diesel_async::pooled_connection::mobc::Pool;
 
-pub mod organisations;
-pub mod buildings;
+mod organisations;
+mod buildings;
+mod rooms;
 
 type AsyncPool = Pool<AsyncPgConnection>;
 type ServerError = (StatusCode, String);
@@ -25,5 +26,7 @@ pub fn setup_api() -> Router<Pool<AsyncPgConnection>> {
         .route("/organisations", get(organisations::get_organisations).post(organisations::create_organisation))
         .route("/organisations/:id", get(organisations::get_organisation_by_uuid))
         .route("/buildings", get(buildings::get_buildings).post(buildings::create_building))
-        .route("/buildings/:id", get(buildings::get_building_by_uuid));
+        .route("/buildings/:id", get(buildings::get_building_by_uuid))
+        .route("/rooms", get(rooms::get_rooms).post(rooms::create_room))
+        .route("/rooms/:id", get(rooms::get_room_by_uuid));
 }

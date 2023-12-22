@@ -6,7 +6,7 @@ use dotenv::dotenv;
 
 mod models;
 mod api;
-pub mod schema;
+mod schema;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
