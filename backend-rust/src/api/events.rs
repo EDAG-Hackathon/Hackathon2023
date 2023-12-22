@@ -1,4 +1,4 @@
-use axum::extract::{State};
+use axum::extract::State;
 use axum::Json;
 use diesel_async::RunQueryDsl;
 use schema::events;
