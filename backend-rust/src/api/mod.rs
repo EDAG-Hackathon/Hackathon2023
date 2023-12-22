@@ -9,6 +9,7 @@ mod organisations;
 mod buildings;
 mod rooms;
 mod appointments;
+mod events;
 
 type AsyncPool = Pool<AsyncPgConnection>;
 type ServerError = (StatusCode, String);
@@ -31,5 +32,6 @@ pub fn setup_api() -> Router<Pool<AsyncPgConnection>> {
         .route("/rooms", get(rooms::get_rooms).post(rooms::create_room))
         .route("/rooms/:id", get(rooms::get_room_by_uuid))
         .route("/appointments", get(appointments::get_appointments).post(appointments::create_appointment))
-        .route("/appointments/:id", get(appointments::get_appointment_by_uuid));
+        .route("/appointments/:id", get(appointments::get_appointment_by_uuid))
+        .route("/events", get(events::get_events));
 }
