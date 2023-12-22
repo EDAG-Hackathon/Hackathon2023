@@ -1,9 +1,9 @@
 use chrono::NaiveDateTime;
-use diesel::{Queryable, Selectable};
+use diesel::{Queryable, Selectable, Insertable};
 use serde::{Serialize, Deserialize};
 use uuid::Uuid;
 
-#[derive(Default, Queryable, Selectable, Serialize, Deserialize)]
+#[derive(Default, Queryable, Selectable, Serialize, Insertable, Deserialize)]
 #[diesel(table_name = crate::schema::appointments)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Appointment {
